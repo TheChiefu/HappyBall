@@ -16,6 +16,10 @@ public class GameManager : MonoBehaviour
     public int languageIndex = 0;   //0 - English / 1 - Japanese
     private string applicationPath = string.Empty;
     public Camera mainCamera = null;
+    public bool gameIsPaused;
+
+    [Header("UI Elements")]
+    [SerializeField] private GameObject pauseScreen;
 
 
     private void Awake()
@@ -26,7 +30,42 @@ public class GameManager : MonoBehaviour
         userData.Load(Utility.GetUserSavePath());
     }
 
+    public void UnpauseGame()
+    {
+        InputManager.instance.pp.SwitchCurrentActionMap("Gameplay");
+        InputManager.instance.Debug_GetCurrentActionMap();
 
+        gameIsPaused = false;
+        pauseScreen.SetActive(false);
+        //Time.timeScale = 1;
+        Cursor_LockNHide();
+    }
+
+    public void PauseGame()
+    {
+        //Set InputManager mode to Menu Mode
+        InputManager.instance.pp.SwitchCurrentActionMap("Menu");
+        InputManager.instance.Debug_GetCurrentActionMap();
+
+        gameIsPaused = true;
+        pauseScreen.SetActive(true);
+        Cursor_UnlockNShow();
+
+
+        //Time.timeScale = 0;
+    }
+
+    private void Cursor_LockNHide()
+    {
+        //Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void Cursor_UnlockNShow()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
 
 
     /// <summary>
