@@ -1,22 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class SmartCam : MonoBehaviour
 {
     public Transform target;
-    public float distance;
-    public Vector3 offset;
+
+    [SerializeField] private float cameraTransitionTime = 1f;
+    [SerializeField] private float distanceOffset = 3;
+    [SerializeField] private float heightOffset = 1;
+    [SerializeField] private Transform player;
+
+    [Header("Clamps")]
+    [SerializeField] private float ClampYRotMin = -25;
+    [SerializeField] private float ClampYRotMax = 70;
 
     [SerializeField]
-    private InputManager _im;
     private float currentX = 0;
     private float currentY = 0;
+    private InputManager _im;
+    private PlayerController _pc;
+    private LevelManager _lm;
 
     private void Start()
     {
+        player = target;
         _im = InputManager.instance;
+        _pc = target.GetComponentInParent<PlayerController>();
+        _lm = LevelManager.instance;
     }
+
 
     public void Update()
     {
@@ -25,11 +39,26 @@ public class SmartCam : MonoBehaviour
             
         }
 
-        if (target != null)
+        if (target != null && _pc != null)
         {
-            currentX += _im.CameraRotation.x * _im.CameraSensitivity;
-            currentY += _im.CameraRotation.y * _im.CameraSensitivity;
-            Orbit();
+            //Fix camera switching (should not be in update!)
+            switch (_lm.cameraMode)
+            {
+                case 0:
+                    //Nothing, player is free moving
+                    break;
+                case 1:
+                    Orbit();
+                    break;
+                case 2:
+                    SideScrollPlayer();
+                    break;
+                case 3:
+                    FixedCamera();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -38,11 +67,34 @@ public class SmartCam : MonoBehaviour
     /// </summary>
     private void Orbit()
     {
-        Vector3 dir = new Vector3(0f, 1f, -distance);
-        Quaternion rot = Quaternion.Euler(currentY, currentX, 0f);
+        currentX = _im.CameraRotation.x;
+        currentY = _im.CameraRotation.y * _im.CameraSensitivity;
+    }
 
-        //Set position distance away from target alongside rotation around target
-        transform.position = (target.position + rot * dir);
-        transform.LookAt(target.position + offset);
+    /// <summary>
+    /// Follow player by sideview. Player's left and right is always the same as cameras.
+    /// </summary>
+    private void SideScrollPlayer()
+    {
+        currentX = 0;
+        currentY = 0;
+
+        //Follow player plus a given distance and hight offset
+        transform.position = player.position + (Vector3.forward * distanceOffset) + (Vector3.up * heightOffset);
+
+        Vector3 eulerRotation = new Vector3(0, target.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(eulerRotation);
+    }
+
+    /// <summary>
+    /// Set rotation and transform of camera to target location (aka fixed)
+    /// </summary>
+    private void FixedCamera()
+    {
+        currentX = 0;
+        currentY = 0;
+
+        transform.position = target.position;
+        transform.rotation = target.rotation;
     }
 }

@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// As name implies it handles data, but handles user configuration and optionss. Then saves to file.
+/// </summary>
 public class HandleData : MonoBehaviour
 {
     [SerializeField] private UserData userData = new UserData();

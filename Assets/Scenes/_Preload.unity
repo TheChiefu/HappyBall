@@ -1609,6 +1609,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: 'Your Happy Ball:'
   Japanese: "\u3042\u306A\u305F\u306E\u30CF\u30C3\u30D4\u30FC\u30DC\u30FC\u30EB\uFF1A"
+  outputText: 
 --- !u!1 &658258499
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,6 +2058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: 'Pause Menu:'
   Japanese: "\u4E00\u6642\u505C\u6B62\u30E1\u30CB\u30E5\u30FC\uFF1A"
+  outputText: 
 --- !u!114 &716885972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2446,15 +2448,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pi: {fileID: -944628639613478452, guid: da1ad5fd98fb34b428c3ed811efbde20, type: 3}
   pp: {fileID: 847544171}
-  Navigation: {x: 0, y: 0}
-  Accept: 0
-  Decline: 0
+  Move: {x: 0, y: 0}
+  Submit: 0
+  Cancel: 0
   Pause: 0
   Jump: 0
   Movement: {x: 0, y: 0}
   CameraRotation: {x: 0, y: 0}
   CameraZoom: 0
-  CameraSensitivity: 0.5
+  CameraSensitivity: 0.005
   Interact: 0
 --- !u!114 &847544171
 MonoBehaviour:
@@ -2469,7 +2471,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: da1ad5fd98fb34b428c3ed811efbde20, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2480,12 +2482,68 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4ba57aa-b394-442c-a25d-7304bec324e9
+    m_ActionName: Menu/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/Mouse/scroll,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2789a1b2-9252-431d-9c52-54b84d58a531
+    m_ActionName: Menu/Submit[/Keyboard/enter,/Keyboard/e,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 063ff6e9-b785-4bd5-921b-058078187692
+    m_ActionName: Menu/Cancel[/Keyboard/backspace,/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5423441c-b3d3-4271-ba6f-329a6b48f8f5
+    m_ActionName: Menu/Pause[/Keyboard/escape,/XInputControllerWindows/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e4edf474-abfb-4fd9-9a7e-02f5381256c4
+    m_ActionName: Menu/Point[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 564f68f6-e3f0-4c03-9e89-00af494d658a
+    m_ActionName: Menu/LeftClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0dc598b6-e9e6-44ac-bdc8-88e071aa6f1b
+    m_ActionName: Menu/MiddleClick[/Mouse/middleButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 43c593e2-f1df-4cd6-9280-6d755c99e86e
+    m_ActionName: Menu/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 10acc96e-c668-4c20-9c03-d7df34a40de2
+    m_ActionName: Menu/Scroll[/Mouse/scroll/y]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a430a82b-c371-478c-8be9-199ac212265d
+    m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow,/XInputControllerWindows/leftStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 48f56c98-5734-4b47-a652-d686298e7936
+    m_ActionName: Gameplay/Interact[/Keyboard/e,/XInputControllerWindows/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a627547d-c986-4ca5-b7c5-ff021678c4e6
+    m_ActionName: Gameplay/Jump[/Keyboard/space,/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 30e559ec-b8b4-4b89-a9cf-e488648ed20c
+    m_ActionName: Gameplay/CameraRotation[/Mouse/delta,/XInputControllerWindows/rightStick]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0e9bfa3d-3298-41bb-854b-cacbbadbabee
+    m_ActionName: Gameplay/CameraZoom[/Mouse/scroll/y,/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard And Mouse
   m_DefaultActionMap: Menu
   m_SplitScreenIndex: -1
-  m_Camera: {fileID: 950344025}
+  m_Camera: {fileID: 0}
 --- !u!1 &906045724
 GameObject:
   m_ObjectHideFlags: 0
@@ -2709,6 +2767,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: 'Enter Your Information:'
   Japanese: "\u60C5\u5831\u3092\u5165\u529B\u3057\u3066\u4E0B\u3055\u3044\uFF1A"
+  outputText: 
 --- !u!1 &950344022
 GameObject:
   m_ObjectHideFlags: 0
@@ -3075,6 +3134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: 'Username:'
   Japanese: "\u30E6\u30FC\u30B6\u30FC\u540D\uFF1A"
+  outputText: 
 --- !u!1 &1076272651
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,6 +3779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: Save
   Japanese: "\u30BB\u30FC\u30D6"
+  outputText: 
 --- !u!1 &1137848439
 GameObject:
   m_ObjectHideFlags: 0
@@ -4571,6 +4632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: Resume
   Japanese: "\u518D\u958B\u3059\u308B"
+  outputText: 
 --- !u!114 &1348765229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5267,6 +5329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: Exit
   Japanese: "\u51FA\u767A\u3059\u308B"
+  outputText: 
 --- !u!114 &1684522862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5645,6 +5708,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: 'Ball Color:'
   Japanese: "\u30DC\u30FC\u30EB\u8272\uFF1A"
+  outputText: 
 --- !u!1 &1767122453
 GameObject:
   m_ObjectHideFlags: 0

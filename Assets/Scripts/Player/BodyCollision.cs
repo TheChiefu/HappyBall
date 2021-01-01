@@ -6,15 +6,28 @@ using UnityEngine;
 public class BodyCollision : MonoBehaviour
 {
     [SerializeField] private PlayerController _pc;
+    [SerializeField] private AudioClip[] hitSounds;
+    [SerializeField] private AudioSource _ac;
 
-    private void Start()
+    private void Awake()
     {
         if (_pc == null) _pc.GetComponentInParent<PlayerController>();
+
+        _ac = GetComponent<AudioSource>();
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        _ac.clip = hitSounds[Random.Range(0, hitSounds.Length)];
+        _ac.Play();
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground") _pc.isGrounded = true;
+        if (collision.gameObject.tag == "Ground")
+        {
+            _pc.isGrounded = true;
+        }
     }
 
     private void OnCollisionExit(Collision collision)

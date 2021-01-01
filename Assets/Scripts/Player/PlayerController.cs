@@ -9,20 +9,18 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 200;
     public bool isGrounded = true;
 
-    /// <summary>
-    /// Movement type based on index (for movement type swtching on the fly)
-    /// 0 - Default: Global world movement, Forward is Z, Left/Right is X Axis, and Up and Y
-    /// 1 - Target: Moves relative to target's local movement axis
-    /// 2 - Target: But sidescrolling
-    /// </summary>
-    public int movementIndex = 0;
-
     private InputManager _im;
     [SerializeField] private SmartCam _sm;
+    [SerializeField] private AudioClip[] jumpSounds;
+    private AudioSource _ac;
+
+    private LevelManager _lm;
 
     private void Start()
     {
         _im = InputManager.instance;
+        _lm = LevelManager.instance;
+        _ac = GetComponent<AudioSource>();
         ball = GetComponentInChildren<Rigidbody>();
         if(_sm == null)
         {
@@ -36,16 +34,19 @@ public class PlayerController : MonoBehaviour
         //Do not allow movement mid-air
         if(isGrounded)
         {
-            switch (movementIndex)
+            switch (_lm.cameraMode)
             {
                 case 0:
                     GlobalMovement();
                     break;
                 case 1:
-                    TargetMovement(_sm.transform, false);
+                    TargetMovement(_sm.transform);
                     break;
                 case 2:
-                    TargetMovement(_sm.transform, true);
+                    TargetMovement(_sm.transform);
+                    break;
+                case 3:
+                    GlobalMovement();
                     break;
                 default:
                     break;
@@ -92,22 +93,18 @@ public class PlayerController : MonoBehaviour
 
 
     //Move ball relative to given target
-    private void TargetMovement(Transform target, bool sideScrolling)
+    private void TargetMovement(Transform target)
     {
-        //Allow for 3D movement when not side-scrolling
-        if (!sideScrolling)
+        //Forward
+        if (_im.Movement.y < 0)
         {
-            //Forward
-            if (_im.Movement.y < 0)
-            {
-                ball.AddForce(target.forward * -force);
-            }
+            ball.AddForce(target.forward * -force);
+        }
 
-            //Backward
-            if (_im.Movement.y > 0)
-            {
-                ball.AddForce(target.forward * force);
-            }
+        //Backward
+        if (_im.Movement.y > 0)
+        {
+            ball.AddForce(target.forward * force);
         }
 
         //Left
@@ -125,6 +122,8 @@ public class PlayerController : MonoBehaviour
         //Jump
         if (_im.Jump)
         {
+            _ac.clip = jumpSounds[Random.Range(0, jumpSounds.Length)];
+            _ac.Play();
             ball.AddForce(Vector3.up * jumpForce);
         }
     }

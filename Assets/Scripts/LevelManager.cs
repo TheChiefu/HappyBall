@@ -10,13 +10,18 @@ public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
 
-    public int totalScore { get; private set; }
-
     /// <summary>
-    /// Time to complete level (in seconds)
+    /// Movement type based on index (for movement type swtching on the fly)
+    /// 0 - Default: Global world movement, Forward is Z, Left/Right is X Axis, and Up and Y
+    /// 1 - Target: Moves relative to target's local movement axis (3D)
+    /// 2 - Target: But sidescrolling (2D)
+    /// 3 - Static Camera
     /// </summary>
-    public float timeRemaining { get { return setTime; } set { setTime = value; } }
-    [SerializeField] private float setTime;
+    [Range(0,3)]
+    public int cameraMode = 0;
+    
+    public int totalScore { get; private set; }
+    public float timeRemaining = 120;
 
 
     [Header("UI Elements")]

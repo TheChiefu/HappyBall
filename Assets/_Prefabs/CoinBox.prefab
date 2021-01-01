@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2419623917507043706
+--- !u!1 &269074465
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2419623917507043709}
-  - component: {fileID: 2419623917507043710}
-  - component: {fileID: 2419623917507043711}
-  - component: {fileID: 2419623917507043708}
-  - component: {fileID: 2419623917507043697}
-  - component: {fileID: 2419623917507043696}
+  - component: {fileID: 269074466}
+  - component: {fileID: 269074468}
+  - component: {fileID: 269074467}
   m_Layer: 0
-  m_Name: CoinBox
+  m_Name: Visual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2419623917507043709
+--- !u!4 &269074466
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2419623917507043706}
+  m_GameObject: {fileID: 269074465}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.53, z: 5.03}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2419623917507043709}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2419623917507043710
+--- !u!33 &269074468
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2419623917507043706}
+  m_GameObject: {fileID: 269074465}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &2419623917507043711
+--- !u!23 &269074467
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2419623917507043706}
+  m_GameObject: {fileID: 269074465}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6ff84a00c08d1c448be94d0c5ba2ce57, type: 2}
+  - {fileID: 2100000, guid: f47b6de17763b314889a6a7f1d578f8e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,6 +81,40 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &2419623917507043706
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2419623917507043709}
+  - component: {fileID: 2419623917507043708}
+  - component: {fileID: 2419623917507043697}
+  - component: {fileID: 2419623917507043696}
+  m_Layer: 0
+  m_Name: CoinBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2419623917507043709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2419623917507043706}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 269074466}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2419623917507043708
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -110,7 +141,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Value: 1
-  SoundClip: {fileID: 8300000, guid: 62b9b223f8b16c84c97573fea8eb78b0, type: 3}
+  sounds:
+  - {fileID: 8300000, guid: 84590e171d03b9f468ce4445526ccd47, type: 3}
+  - {fileID: 8300000, guid: 7b32df4cb2eae2a4f8b55a1da4a66c25, type: 3}
+  - {fileID: 8300000, guid: b1ee18152d8da3544bf42810fa25ce6f, type: 3}
+  - {fileID: 8300000, guid: 27ba3b8b83928a64d83a093414ba1a22, type: 3}
+  - {fileID: 8300000, guid: da42172b3fb1bab42aa79e61fa25e691, type: 3}
+  - {fileID: 8300000, guid: d8fca4b5e52fe754bbefd06e7343075a, type: 3}
+  - {fileID: 8300000, guid: 5693ef571a04a2d45960295ac52e7402, type: 3}
+  visualCoin: {fileID: 269074465}
+  coinColors:
+  - {r: 0, g: 0, b: 0, a: 0}
+  - {r: 1, g: 1, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0, a: 0}
+  - {r: 0, g: 1, b: 0.9914465, a: 0}
+  - {r: 1, g: 0, b: 0.97969294, a: 0}
+  - {r: 1, g: 0, b: 0.11840153, a: 0}
+  - {r: 1, g: 1, b: 1, a: 0}
   rotationSpeed: 100
   floatFrequency: 0.5
   floatAmplitude: 0.2
