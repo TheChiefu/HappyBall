@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
+    [Header("General")]
     public Rigidbody ball;
     public float force = 100;
     public float jumpForce = 200;
+    public float maxSpeed = 50;
     public bool isGrounded = true;
 
+    [Header("Animation")]
+    [SerializeField] private Animator _anim;
+    [SerializeField] private GameObject endParticles;
+    [SerializeField] private GameObject floatingTitle;
+
+    [Header("Cosmetic")]
     private InputManager _im;
     [SerializeField] private SmartCam _sm;
     [SerializeField] private AudioClip[] jumpSounds;
@@ -21,6 +30,7 @@ public class PlayerController : MonoBehaviour
         _im = InputManager.instance;
         _lm = LevelManager.instance;
         _ac = GetComponent<AudioSource>();
+        _anim = GetComponentInChildren<Animator>();
         ball = GetComponentInChildren<Rigidbody>();
         if(_sm == null)
         {
@@ -28,11 +38,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        LimitVelocity();
+    }
+
     private void FixedUpdate()
     {
 
         //Do not allow movement mid-air
-        if(isGrounded)
+        if (isGrounded)
         {
             switch (_lm.cameraMode)
             {
@@ -54,6 +69,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    private void LimitVelocity()
+    {
+        if(ball.angularVelocity.magnitude > maxSpeed)
+        {
+            ball.angularVelocity.Set(maxSpeed, maxSpeed, maxSpeed);
+        }
+
+        if(ball.velocity.magnitude > maxSpeed)
+        {
+            ball.velocity.Set(maxSpeed, maxSpeed, maxSpeed);
+        }
+
+        if (ball.angularVelocity.magnitude > -maxSpeed)
+        {
+            ball.angularVelocity.Set(-maxSpeed, -maxSpeed, -maxSpeed);
+        }
+
+        if (ball.velocity.magnitude > -maxSpeed)
+        {
+            ball.velocity.Set(-maxSpeed, -maxSpeed, -maxSpeed);
+        }
+    }
 
     /// <summary>
     /// Move ball in 3D motion with static angles (non-depent on camera)
@@ -126,5 +164,17 @@ public class PlayerController : MonoBehaviour
             _ac.Play();
             ball.AddForce(Vector3.up * jumpForce);
         }
+    }
+
+    public void EndLevelAnimation()
+    {
+        ball.velocity = Vector3.zero;
+        ball.isKinematic = true;
+
+        _anim.enabled = true;
+        _anim.SetBool("BeatLevel", true);
+        endParticles.SetActive(true);
+
+        if (floatingTitle != null) floatingTitle.SetActive(false);
     }
 }

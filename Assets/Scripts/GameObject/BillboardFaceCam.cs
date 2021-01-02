@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Simple script to have 3D text always face camera
+/// Simple script to have target always face camera
 /// </summary>
 public class BillboardFaceCam : MonoBehaviour
 {
@@ -12,7 +12,7 @@ public class BillboardFaceCam : MonoBehaviour
     [SerializeField]
     private Vector3 offset = Vector3.zero;
 
-    // Update is called once per frame
+    //Update target to always face camera
     private void Update()
     {
         transform.LookAt(GameManager.instance.mainCamera.transform);

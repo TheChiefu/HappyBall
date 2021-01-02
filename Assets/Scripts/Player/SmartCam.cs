@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Cinemachine;
 
 public class SmartCam : MonoBehaviour
 {
@@ -62,6 +59,11 @@ public class SmartCam : MonoBehaviour
         }
     }
 
+    private void NoTarget()
+    {
+        
+    }
+
     /// <summary>
     /// Orbit around the target, rotates while looking around target depending on input
     /// </summary>
@@ -76,9 +78,6 @@ public class SmartCam : MonoBehaviour
     /// </summary>
     private void SideScrollPlayer()
     {
-        currentX = 0;
-        currentY = 0;
-
         //Follow player plus a given distance and hight offset
         transform.position = player.position + (Vector3.forward * distanceOffset) + (Vector3.up * heightOffset);
 
@@ -91,9 +90,6 @@ public class SmartCam : MonoBehaviour
     /// </summary>
     private void FixedCamera()
     {
-        currentX = 0;
-        currentY = 0;
-
         transform.position = target.position;
         transform.rotation = target.rotation;
     }

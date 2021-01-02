@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
@@ -36,5 +34,12 @@ public class CameraTrigger : MonoBehaviour
             LevelManager.instance.cameraMode = previousIndex;
             camera.enabled = false;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(1, 0, 0, 0.2f);
+        BoxCollider area = GetComponent<BoxCollider>();
+        Gizmos.DrawCube(transform.position + area.center, area.size);
     }
 }

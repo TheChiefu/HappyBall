@@ -12,6 +12,7 @@ public class OutOfBounds : MonoBehaviour
         Rigidbody rg = other.gameObject.GetComponent<Rigidbody>();
         if (rg != null) rg.velocity = Vector3.zero;
 
+        other.gameObject.transform.rotation = RespawnPoint.rotation;
         other.gameObject.transform.position = RespawnPoint.position;
     }
 }

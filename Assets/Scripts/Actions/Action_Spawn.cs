@@ -16,7 +16,6 @@ public class Action_Spawn : MonoBehaviour
 
     public void Spawn()
     {
-        Debug.Log("Spawned");
 
         if(isInstantiated)
         {

@@ -19,9 +19,27 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     [Range(0,3)]
     public int cameraMode = 0;
-    
-    public int totalScore { get; private set; }
+
+    [Header("Level Settings:")]
+    [SerializeField] private bool inEditor = false;
+    public float winDelayTime = 2f;
+
+    [Header("Win Requirements:")]
+    public int WinScore = 0;
+    public int WinSwitches = 0;
+
+    [Header("Tracked Items:")]
     public float timeRemaining = 120;
+    public int switchesActivated = 0;
+    public int totalScore { get; private set; }
+
+    [Header("Level Cosmestics")]
+    public Texture PrimaryTexture;
+    public Texture SecondaryTexture;
+    public Texture TertiaryTexture;
+    public Color PrimaryColor;
+    public Color SecondaryColor;
+    public Color TertiaryColor;
 
 
     [Header("UI Elements")]
@@ -66,5 +84,9 @@ public class LevelManager : MonoBehaviour
         UI_TotalScore.text = string.Format("Total Score: {0}", totalScore);
     }
 
+    public void EndLevel()
+    {
+        if (inEditor) UnityEditor.EditorApplication.isPlaying = false;
+    }
 
 }

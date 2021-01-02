@@ -11,15 +11,18 @@ public class BodyCollision : MonoBehaviour
 
     private void Awake()
     {
-        if (_pc == null) _pc.GetComponentInParent<PlayerController>();
+        if (_pc == null) GetComponentInParent<PlayerController>();
 
         _ac = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        _ac.clip = hitSounds[Random.Range(0, hitSounds.Length)];
-        _ac.Play();
+        if(!_pc.isGrounded)
+        {
+            _ac.clip = hitSounds[Random.Range(0, hitSounds.Length)];
+            _ac.Play();
+        }
     }
 
     private void OnCollisionStay(Collision collision)
