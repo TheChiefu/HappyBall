@@ -18,154 +18,91 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private GameObject floatingTitle;
 
     [Header("Cosmetic")]
-    private InputManager _im;
     [SerializeField] private SmartCam _sm;
     [SerializeField] private AudioClip[] jumpSounds;
+    public NotificationBox notificationBox;
+    private InputManager _im;
     private AudioSource _ac;
-
     private LevelManager _lm;
 
     private void Start()
     {
-        _im = InputManager.instance;
-        _lm = LevelManager.instance;
-        _ac = GetComponent<AudioSource>();
-        _anim = GetComponentInChildren<Animator>();
-        ball = GetComponentInChildren<Rigidbody>();
-        if(_sm == null)
-        {
-            _sm = GameManager.instance.mainCamera.GetComponent<SmartCam>();
-        }
+        if (_im == null)        _im = InputManager.instance;
+        if (_lm == null)        _lm = LevelManager.instance;
+        if (_ac == null)        _ac = GetComponent<AudioSource>();
+        if (_anim == null)      _anim = GetComponentInChildren<Animator>();
+        if (_sm == null)        _sm = GameManager.instance.mainCamera.GetComponent<SmartCam>();
+        if (ball == null)       ball = GetComponentInChildren<Rigidbody>();
+        if (notificationBox == null) Debug.LogError("Attach the notification box reference to " + this.name);
     }
 
-    private void Update()
-    {
-        LimitVelocity();
-    }
-
+    //Update player movement
     private void FixedUpdate()
     {
-
         //Do not allow movement mid-air
         if (isGrounded)
         {
-            switch (_lm.cameraMode)
-            {
-                case 0:
-                    GlobalMovement();
-                    break;
-                case 1:
-                    TargetMovement(_sm.transform);
-                    break;
-                case 2:
-                    TargetMovement(_sm.transform);
-                    break;
-                case 3:
-                    GlobalMovement();
-                    break;
-                default:
-                    break;
-            }
+            if (_lm.cameraMode == 0) Movement(null, true);
+            else if (_lm.cameraMode == 1) Movement(_sm.transform, false);
         }
     }
 
 
-    private void LimitVelocity()
+
+
+
+
+
+    /// <summary>
+    /// Move ball relative or target or world axis
+    /// </summary>
+    /// <param name="target"></param>
+    /// <param name="WorldMove"></param>
+    private void Movement(Transform target, bool WorldMove)
     {
-        if(ball.angularVelocity.magnitude > maxSpeed)
+        //Forward
+        if (_im.Movement.y < 0)
         {
-            ball.angularVelocity.Set(maxSpeed, maxSpeed, maxSpeed);
+            if (WorldMove) ball.AddForce(Vector3.forward * -force);
+            else ball.AddForce(target.forward * -force);
         }
 
-        if(ball.velocity.magnitude > maxSpeed)
+        //Backward
+        if (_im.Movement.y > 0)
         {
-            ball.velocity.Set(maxSpeed, maxSpeed, maxSpeed);
+            if (WorldMove) ball.AddForce(Vector3.forward * force);
+            else ball.AddForce(target.forward * force);
         }
 
-        if (ball.angularVelocity.magnitude > -maxSpeed)
+        //Left
+        if (_im.Movement.x < 0)
         {
-            ball.angularVelocity.Set(-maxSpeed, -maxSpeed, -maxSpeed);
+            if (WorldMove) ball.AddForce(Vector3.right * -force);
+            else ball.AddForce(target.right * -force);
         }
 
-        if (ball.velocity.magnitude > -maxSpeed)
+        //Right
+        if (_im.Movement.x > 0)
         {
-            ball.velocity.Set(-maxSpeed, -maxSpeed, -maxSpeed);
+            if (WorldMove) ball.AddForce(Vector3.right * force);
+            else ball.AddForce(target.right * force);
+        }
+
+        //Jump
+        if (_im.Jump)
+        {
+            if (WorldMove) ball.AddForce(Vector3.up * jumpForce);
+            else ball.AddForce(Vector3.up * jumpForce);
+
+            //Play sound on jump
+            _ac.clip = jumpSounds[Random.Range(0, jumpSounds.Length)];
+            _ac.Play();
         }
     }
 
     /// <summary>
-    /// Move ball in 3D motion with static angles (non-depent on camera)
+    /// Set end of level animations and features
     /// </summary>
-    private void GlobalMovement()
-    {
-        //Left
-        if (_im.Movement.x < 0)
-        {
-            ball.AddForce(Vector3.right * -force);
-        }
-
-        //Right
-        if (_im.Movement.x > 0)
-        {
-            ball.AddForce(Vector3.right * force);
-        }
-
-        //Forward
-        if (_im.Movement.y < 0)
-        {
-            ball.AddForce(Vector3.forward * -force);
-        }
-
-        //Backward
-        if (_im.Movement.y > 0)
-        {
-            ball.AddForce(Vector3.forward * force);
-        }
-
-        //Jump
-        if (_im.Jump)
-        {
-            ball.AddForce(Vector3.up * jumpForce);
-        }
-    }
-
-
-    //Move ball relative to given target
-    private void TargetMovement(Transform target)
-    {
-        //Forward
-        if (_im.Movement.y < 0)
-        {
-            ball.AddForce(target.forward * -force);
-        }
-
-        //Backward
-        if (_im.Movement.y > 0)
-        {
-            ball.AddForce(target.forward * force);
-        }
-
-        //Left
-        if (_im.Movement.x < 0)
-        {
-            ball.AddForce(target.right * -force);
-        }
-
-        //Right
-        if (_im.Movement.x > 0)
-        {
-            ball.AddForce(target.right * force);
-        }
-
-        //Jump
-        if (_im.Jump)
-        {
-            _ac.clip = jumpSounds[Random.Range(0, jumpSounds.Length)];
-            _ac.Play();
-            ball.AddForce(Vector3.up * jumpForce);
-        }
-    }
-
     public void EndLevelAnimation()
     {
         ball.velocity = Vector3.zero;

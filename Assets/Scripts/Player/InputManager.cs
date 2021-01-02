@@ -47,12 +47,6 @@ public class InputManager : MonoBehaviour
 
     }
 
-    private void Update()
-    {
-        //NONO
-        //if (Pause) GameManager.instance.PauseGame();
-    }
-
     public void Debug_GetCurrentActionMap()
     {
         Debug.Log(pp.currentActionMap.name);

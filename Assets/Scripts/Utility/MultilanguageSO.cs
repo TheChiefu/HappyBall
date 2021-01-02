@@ -17,14 +17,16 @@ public class MultilanguageSO : UnityEngine.ScriptableObject
         }
     }
 
-    //Build string from array of strings
+    //Build single string from array of strings
     private string GetString(string[] array)
     {
         string output = string.Empty;
 
         for(int i = 0; i < array.Length; i++)
         {
-            output += array[i] + "\n";
+            //Ensure last line doesn't have trailing endline
+            if (i != array.Length - 1) output += array[i] + "\n";
+            else output += array[i];
         }
 
         return output;

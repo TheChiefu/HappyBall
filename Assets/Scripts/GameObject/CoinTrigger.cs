@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// Used in visual part of coin to collide with player and collect coin
+/// Used in visual mesh of coin to collide with player and collect coin
 /// </summary>
 public class CoinTrigger : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class CoinTrigger : MonoBehaviour
 
     private void Awake()
     {
-        coin = GetComponentInParent<Coin>();
+        if(coin == null) coin = GetComponentInParent<Coin>();
     }
 
     private void OnTriggerEnter(Collider other)

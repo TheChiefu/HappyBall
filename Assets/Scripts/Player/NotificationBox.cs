@@ -1,26 +1,32 @@
-using System.Collections;
 using UnityEngine;
-using TMPro;
 
 /// <summary>
 /// Display box above player that shows relevant information
 /// </summary>
 public class NotificationBox : MonoBehaviour
 {
-    [SerializeField] private TextMeshPro box;
+    [Header("Settings:")]
+    [SerializeField] private TMPro.TextMeshProUGUI box;
     [SerializeField] private float disableTime = 1f;
-
-
-    //Disable time when necessary
-    private IEnumerator DisableTimer(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        box.enabled = false;
-    }
 
     private void Awake()
     {
-        if (box == null) box.GetComponent<TextMeshProUGUI>();
+        if (box == null) box.GetComponent<TMPro.TextMeshProUGUI>();
+        if (box != null) box.text = string.Empty;
+    }
+
+
+
+
+    /// <summary>
+    /// Disbles GUI over period of given time
+    /// </summary>
+    /// <param name="delay"></param>
+    /// <returns></returns>
+    private System.Collections.IEnumerator DisableTimer(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        box.text = string.Empty;
     }
 
     /// <summary>
@@ -29,14 +35,10 @@ public class NotificationBox : MonoBehaviour
     /// <param name="text"></param>
     public void UpdateTextBox(string text)
     {
-        //Turn on box
-        box.enabled = true;
-
         //Update text
         box.text = text;
 
         //Disable text from timer if necssary
         if (disableTime > 0) StartCoroutine(DisableTimer(disableTime));
-        box.enabled = false;
     }
 }

@@ -12,14 +12,9 @@ public class EndGoal : MonoBehaviour
     /// </summary>
     private LevelManager _lm;
 
-    [SerializeField] private bool inEditor = false;
-
-
     [Header("General")]
-    //Position offset in which player is put in relative to end goal
-    [SerializeField] private Vector3 offset = new Vector3(0,2,0);
-    [SerializeField] private Cinemachine.CinemachineVirtualCamera goalCam;
-    [SerializeField] private float winToExitDelay = 2f;
+    [SerializeField] private Vector3 offset = new Vector3(0,2,0);               //Position offset in which player is put in relative to end goal
+    [SerializeField] private Cinemachine.CinemachineVirtualCamera goalCam;      //Goal Camera that superscedes Main Follow Camera in priority
 
     [Header("Notification:")]
     [SerializeField] private float displayTime = 2f;
@@ -27,21 +22,22 @@ public class EndGoal : MonoBehaviour
     [SerializeField] private TextMeshProUGUI textArea;
     [SerializeField] private MultilanguageSO[] text;
 
+    //Find LevelManager reference on start
     private void Start()
     {
-        _lm = LevelManager.instance;
+       if(_lm == null) _lm = LevelManager.instance;
     }
 
+    /// <summary>
+    /// Check if player has beaten level when they enter the end goal
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
             //If conditions met end level other wise notify player
-            if (WinConditionMet()) StartCoroutine(EndLevel(other.gameObject, winToExitDelay));
-            else
-            {
-
-            }
+            if (WinConditionMet()) EndLevel(other.gameObject);
         }
     }
 
@@ -58,7 +54,7 @@ public class EndGoal : MonoBehaviour
             else
             {
                 //Not enough coins
-                textArea.text = text[0].GetText(GameManager.instance.languageIndex) + string.Format("{0}/{1}",_lm.totalScore, _lm.WinScore);
+                textArea.text = string.Format("{2}: {0}/{1}", _lm.totalScore, _lm.WinScore, text[0].GetText(GameManager.instance.languageIndex));
 
                 StartCoroutine(DisplayNotification(displayTime));
                 return false;
@@ -72,7 +68,7 @@ public class EndGoal : MonoBehaviour
             else
             {
                 //Not enough switches activated
-                textArea.text = text[1].GetText(GameManager.instance.languageIndex) + string.Format("{0}/{1}", _lm.switchesActivated, _lm.WinSwitches);
+                textArea.text = string.Format("{2}: {0}/{1}", _lm.switchesActivated, _lm.WinSwitches, text[1].GetText(GameManager.instance.languageIndex));
 
                 StartCoroutine(DisplayNotification(displayTime));
                 return false;
@@ -83,6 +79,12 @@ public class EndGoal : MonoBehaviour
         return true;
     }
 
+    /// <summary>
+    /// Timed notification display, that shows player the necessary requirements left to beat the level.
+    /// Based on a timer in seconds
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
     private IEnumerator DisplayNotification(float time)
     {
         notificationCanvas.SetActive(true);
@@ -90,7 +92,12 @@ public class EndGoal : MonoBehaviour
         notificationCanvas.SetActive(false);
     }
 
-    private IEnumerator EndLevel(GameObject player, float delay)
+    /// <summary>
+    /// Function that ends level itself and plays animation for player.
+    /// Calls the LevelManager to fully end level
+    /// </summary>
+    /// <param name="player"></param>
+    private void EndLevel(GameObject player)
     {
         //Look Camera at goal
         goalCam.enabled = true;
@@ -102,19 +109,6 @@ public class EndGoal : MonoBehaviour
         //Play player goal animation
         player.GetComponentInParent<PlayerController>().EndLevelAnimation();
 
-        yield return new WaitForSeconds(delay);
-
         _lm.EndLevel();
-    }
-
-    //Just in case
-    public void ToggleCamera()
-    {
-        goalCam.enabled = !goalCam.enabled;
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        goalCam.enabled = false;
     }
 }

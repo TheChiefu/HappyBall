@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,17 +12,28 @@ public class AutoColor : MonoBehaviour
 
     private void Start()
     {
+        if(LevelManager.instance != null)
+        {
+            TextureObjects(primaryObjects, LevelManager.instance.PrimaryTexture);
+            TextureObjects(secondaryObjects, LevelManager.instance.SecondaryTexture);
+            TextureObjects(tertiaryObjects, LevelManager.instance.TertiaryTexture);
 
-        TextureObjects(primaryObjects, LevelManager.instance.PrimaryTexture);
-        TextureObjects(secondaryObjects, LevelManager.instance.SecondaryTexture);
-        TextureObjects(tertiaryObjects, LevelManager.instance.TertiaryTexture);
-
-        ColorObject(primaryObjects, LevelManager.instance.PrimaryColor);
-        ColorObject(secondaryObjects, LevelManager.instance.SecondaryColor);
-        ColorObject(tertiaryObjects, LevelManager.instance.TertiaryColor);
+            ColorObject(primaryObjects, LevelManager.instance.PrimaryColor);
+            ColorObject(secondaryObjects, LevelManager.instance.SecondaryColor);
+            ColorObject(tertiaryObjects, LevelManager.instance.TertiaryColor);
+        }
+        else
+        {
+            Debug.LogWarning("No level manager on this scene, using default material colors");
+        }
 
     }
 
+    /// <summary>
+    /// Given a mesh array all the items are given a texture
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="texArrayItem"></param>
     private void TextureObjects(MeshRenderer[] array, Texture texArrayItem)
     {
         for (int i = 0; i < array.Length; i++)
@@ -33,6 +42,11 @@ public class AutoColor : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Given a mesh array all the items are given a color
+    /// </summary>
+    /// <param name="array"></param>
+    /// <param name="assignedColor"></param>
     private void ColorObject(MeshRenderer[] array, Color assignedColor)
     {
         for(int i = 0; i < array.Length; i++)

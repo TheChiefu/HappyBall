@@ -12,10 +12,13 @@ public class BodyCollision : MonoBehaviour
     private void Awake()
     {
         if (_pc == null) GetComponentInParent<PlayerController>();
-
-        _ac = GetComponent<AudioSource>();
+        if (_ac == null) _ac = GetComponent<AudioSource>();
     }
 
+    /// <summary>
+    /// When player body hits an object while not grounded make a noise
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
         if(!_pc.isGrounded)
@@ -25,6 +28,10 @@ public class BodyCollision : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When actively colliding with ground mark player as "grounded"
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionStay(Collision collision)
     {
         if (collision.gameObject.tag == "Ground")
@@ -33,6 +40,10 @@ public class BodyCollision : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// When player leaves ground mark player as "not grounded"
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Ground") _pc.isGrounded = false;

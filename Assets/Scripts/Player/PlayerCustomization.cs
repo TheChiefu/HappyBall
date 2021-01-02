@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -7,21 +5,19 @@ using UnityEngine;
 /// </summary>
 public class PlayerCustomization : MonoBehaviour
 {
-    [SerializeField]
-    private MeshRenderer PlayerModel = null;
-    [SerializeField]
-    private TMPro.TextMeshProUGUI PlayerNameDisplay = null;
+    [SerializeField] private MeshRenderer PlayerModel = null;
+    [SerializeField] private TMPro.TextMeshProUGUI PlayerNameDisplay = null;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
         Initialize();
-
         PlayerModel.material.color = GameManager.instance.userData.ballColor;
         PlayerNameDisplay.text = GameManager.instance.userData.username;
     }
 
+    /// <summary>
+    /// Setup player customization such as name and model color
+    /// </summary>
     private void Initialize()
     {
         if(PlayerModel == null) PlayerModel = this.GetComponentInChildren<MeshRenderer>();

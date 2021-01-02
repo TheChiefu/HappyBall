@@ -1,18 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Sends any object with a non-trigger 3D collider back to a spawn point
+/// </summary>
 public class OutOfBounds : MonoBehaviour
 {
-    public Transform RespawnPoint;
-
     private void OnTriggerEnter(Collider other)
     {
         //Reset velocity if it has it (it should have)
         Rigidbody rg = other.gameObject.GetComponent<Rigidbody>();
+        Transform ts = other.gameObject.transform;
         if (rg != null) rg.velocity = Vector3.zero;
 
-        other.gameObject.transform.rotation = RespawnPoint.rotation;
-        other.gameObject.transform.position = RespawnPoint.position;
+
+        //If object is a tagged physics object set back to it's original spawn
+        if(other.gameObject.tag == "Physics")
+        {
+            PhysicsObject PO = other.gameObject.GetComponent<PhysicsObject>();
+            ts.position = PO.respawnPosition;
+            ts.rotation = PO.respawnRotation;
+        }
+
+        //If object is the player set their position at spawn/checkpoint
+        if(other.gameObject.tag == "Player")
+        {
+            LevelManager LM = LevelManager.instance;
+
+            //Respawn at checkpoint spawn
+            if(LM.respawnPoints != null)
+            {
+                Transform respawn = LM.respawnPoints[LM.currentCheckpoint];
+                ts.position = respawn.position;
+                ts.rotation = respawn.rotation;
+            }
+            
+            //If no respawn point given spawn a point (0,0,0)
+            else
+            {
+                Debug.LogError("No respawn points given!");
+                ts.position = Vector3.zero;
+                ts.rotation = Quaternion.identity;
+            }
+        }
     }
 }

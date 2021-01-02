@@ -14,14 +14,14 @@ public class LevelManager : MonoBehaviour
     /// Movement type based on index (for movement type swtching on the fly)
     /// 0 - Default: Global world movement, Forward is Z, Left/Right is X Axis, and Up and Y
     /// 1 - Target: Moves relative to target's local movement axis (3D)
-    /// 2 - Target: But sidescrolling (2D)
-    /// 3 - Static Camera
     /// </summary>
     [Range(0,3)]
     public int cameraMode = 0;
 
     [Header("Level Settings:")]
     [SerializeField] private bool inEditor = false;
+    public Transform[] respawnPoints;
+    public int currentCheckpoint = 0;
     public float winDelayTime = 2f;
 
     [Header("Win Requirements:")]
@@ -55,11 +55,9 @@ public class LevelManager : MonoBehaviour
         if (UI_TimeText == null) UI_TimeText = UI_TimeRemaining.GetComponent<MultilanguageText>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         UpdateTime(UI_TimeText.outputText);
-        
-
     }
 
     /// <summary>

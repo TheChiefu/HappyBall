@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// Generic coin class
+/// </summary>
 public class Coin : MonoBehaviour
 {
     [SerializeField] private int Value;
@@ -47,8 +50,8 @@ public class Coin : MonoBehaviour
     //Set properties of coin on runtime
     private void Awake()
     {
-        _as = GetComponent<AudioSource>();
-        _rb = GetComponent<Rigidbody>();
+        if(_as == null) _as = GetComponent<AudioSource>();
+        if(_rb == null) _rb = GetComponent<Rigidbody>();
         SetCoinProperties();
     }
 
