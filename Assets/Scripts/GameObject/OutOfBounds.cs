@@ -27,7 +27,7 @@ public class OutOfBounds : MonoBehaviour
             LevelManager LM = LevelManager.instance;
 
             //Respawn at checkpoint spawn
-            if(LM.respawnPoints != null)
+            if(LM.respawnPoints.Length > 0)
             {
                 Transform respawn = LM.respawnPoints[LM.currentCheckpoint];
                 ts.position = respawn.position;
