@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     public void UnpauseGame()
     {
-        InputManager.instance.pp.SwitchCurrentActionMap("Gameplay");
+        //InputManager.instance.pp.SwitchCurrentActionMap("Gameplay");
         InputManager.instance.Debug_GetCurrentActionMap();
 
         gameIsPaused = false;
@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         //Set InputManager mode to Menu Mode
-        InputManager.instance.pp.SwitchCurrentActionMap("Menu");
+        //InputManager.instance.pp.SwitchCurrentActionMap("Menu");
         InputManager.instance.Debug_GetCurrentActionMap();
 
         gameIsPaused = true;

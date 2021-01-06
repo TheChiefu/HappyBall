@@ -8,6 +8,7 @@ public class SmartCam : MonoBehaviour
     [SerializeField] private float distanceOffset = 3;
     [SerializeField] private float heightOffset = 1;
     [SerializeField] private Transform player;
+    [SerializeField] private Cinemachine.CinemachineFreeLook freeLookCam;
 
     private InputManager _im;
     private PlayerController _pc;
@@ -33,10 +34,10 @@ public class SmartCam : MonoBehaviour
             switch (_lm.cameraMode)
             {
                 case 0:
-                    //Nothing, player is free moving
+                    
                     break;
                 case 1:
-                    //Nothing
+                    FreeLookCamera();
                     break;
                 case 2:
                     SideScrollPlayer();
@@ -69,5 +70,48 @@ public class SmartCam : MonoBehaviour
     {
         transform.position = player.position;
         transform.rotation = player.rotation;
+    }
+
+    public float spinRate = 5f;
+    private bool flippingCamera = false;
+    private bool spinning = false;
+    private float value = 0;
+    private float cameraRotation = 0;
+    private float inverseRotation = 0;
+    private void FreeLookCamera()
+    {
+
+        if(freeLookCam != null)
+        {
+
+            if (_im.flipCamera && flippingCamera == false)
+            {
+                flippingCamera = true;
+                freeLookCam.m_XAxis.Value = 180f;
+                //spinning = true;
+                //inverseRotation = Quaternion.Inverse(this.transform.rotation).eulerAngles.y;
+            }
+
+            if (!_im.flipCamera)
+            {
+                flippingCamera = false;
+            }
+
+
+            //Try to do smooth camera spin
+/*            if(spinning == true)
+            {
+                value += (Time.deltaTime * spinRate);
+                freeLookCam.m_XAxis.Value = value;
+            }
+
+            if (cameraRotation >= inverseRotation && spinning == true)
+            {
+                value = 0;
+                spinning = false;
+            }*/
+
+
+        }
     }
 }

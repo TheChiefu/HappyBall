@@ -18,10 +18,8 @@ public class InputManager : MonoBehaviour
 
     [Header("Gameplay")]
     public bool Jump = false;
+    public bool flipCamera = false;
     public Vector2 Movement = Vector2.zero;
-    public Vector2 CameraRotation = Vector2.zero;
-    public float CameraZoom = 0;
-    public float CameraSensitivity = 0.5f;
     public bool Interact = false;
 
     //Menu Actions
@@ -32,9 +30,8 @@ public class InputManager : MonoBehaviour
 
     //Gameplay Actions
     private InputAction IA_Jump;
+    private InputAction IA_FlipCamera;
     private InputAction IA_Movement;
-    private InputAction IA_CameraRotation;
-    private InputAction IA_CameraZoom;
     private InputAction IA_Interact;
 
     private void Awake()
@@ -49,7 +46,7 @@ public class InputManager : MonoBehaviour
 
     public void Debug_GetCurrentActionMap()
     {
-        Debug.Log(pp.currentActionMap.name);
+
     }
 
     private void SetupMenu()
@@ -82,14 +79,6 @@ public class InputManager : MonoBehaviour
         IA_Movement = gameplay.FindAction("Movement");
         IA_Movement.performed += ctx => Movement = ctx.ReadValue<Vector2>();
 
-        IA_CameraRotation = gameplay.FindAction("CameraRotation");
-        IA_CameraRotation.performed += ctx => CameraRotation = ctx.ReadValue<Vector2>();
-
-
-        //Floats
-        IA_CameraZoom = gameplay.FindAction("CameraZoom");
-        IA_CameraZoom.performed += ctx => CameraZoom = ctx.ReadValue<float>();
-
         //Toggle Input
 
 
@@ -101,6 +90,11 @@ public class InputManager : MonoBehaviour
         IA_Interact = gameplay.FindAction("Interact");
         IA_Interact.performed += ctx => Interact = true;
         IA_Interact.canceled += ctx => Interact = false;
+
+        IA_FlipCamera = gameplay.FindAction("FlipCamera");
+
+        IA_FlipCamera.performed += ctx => flipCamera = true;
+        IA_FlipCamera.canceled += ctx => flipCamera = false;
 
     }
 

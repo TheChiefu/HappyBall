@@ -374,18 +374,10 @@
                     "interactions": ""
                 },
                 {
-                    "name": "CameraRotation",
-                    "type": "PassThrough",
-                    "id": "30e559ec-b8b4-4b89-a9cf-e488648ed20c",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "CameraZoom",
-                    "type": "PassThrough",
-                    "id": "0e9bfa3d-3298-41bb-854b-cacbbadbabee",
-                    "expectedControlType": "Axis",
+                    "name": "FlipCamera",
+                    "type": "Button",
+                    "id": "0523805e-ef85-41b9-a127-a10bf8ec74aa",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 }
@@ -558,69 +550,25 @@
                 },
                 {
                     "name": "",
-                    "id": "2eedb422-1a64-4f78-bf92-dcd49d76e0f7",
-                    "path": "<Mouse>/delta",
+                    "id": "22d5941a-1574-4b12-ac40-eebc0611d396",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard And Mouse",
-                    "action": "CameraRotation",
+                    "action": "FlipCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "a53b11ae-b588-4ab9-afaa-c384212aad14",
-                    "path": "<Gamepad>/rightStick",
+                    "id": "0b0f5993-99c8-4e0e-8b7e-509e56dc85ac",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
-                    "action": "CameraRotation",
+                    "action": "FlipCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "badc9e0c-e951-4e9d-8b21-777f5344ffbc",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard And Mouse",
-                    "action": "CameraZoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "1D Axis",
-                    "id": "f4cd189a-115b-4116-82f0-3e5247f6e1c9",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraZoom",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "6ad105c7-5a3f-4387-b0e7-715bc685151f",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CameraZoom",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "05d93d66-398a-4093-b91c-474fa9820983",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "CameraZoom",
-                    "isComposite": false,
-                    "isPartOfComposite": true
                 }
             ]
         }

@@ -23,6 +23,7 @@ public class LevelManager : MonoBehaviour
     public Transform[] respawnPoints;
     public int currentCheckpoint = 0;
     public float winDelayTime = 2f;
+    public bool levelEnded = false;
 
     [Header("Win Requirements:")]
     public int WinScore = 0;
@@ -84,7 +85,14 @@ public class LevelManager : MonoBehaviour
 
     public void EndLevel()
     {
+        StartCoroutine(Wait(winDelayTime));
+    }
+
+    private IEnumerator Wait(float timer)
+    {
+        yield return new WaitForSeconds(timer);
         if (inEditor) UnityEditor.EditorApplication.isPlaying = false;
+        levelEnded = true;
     }
 
 }
