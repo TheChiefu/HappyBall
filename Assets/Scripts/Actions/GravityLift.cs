@@ -29,7 +29,8 @@ public class GravityLift : MonoBehaviour
         Rigidbody rg = other.GetComponent<Rigidbody>();
         if(rg != null)
         {
-            rg.AddForce(direction * 100 * multiplier);
+            //Set velocity of object for consistent movement and direction
+            rg.velocity = direction * multiplier;
         }
     }
 

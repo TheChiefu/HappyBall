@@ -136,11 +136,11 @@ public class Coin : MonoBehaviour
     /// <summary>
     /// Determines what to do when coin is collected
     /// </summary>
-    public void Collect()
+    public void Collect(int multiplier)
     {
         //Play sound, update score, visually disable coin, and then destory
         _as.Play();
-        LevelManager.instance.UpdateScore(Value);
+        HUD_Manager.instance.UpdateScore(Value * multiplier);
         visualCoin.SetActive(false);
         Destroy(this.gameObject, _as.clip.length);
     }

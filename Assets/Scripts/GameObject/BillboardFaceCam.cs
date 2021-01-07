@@ -13,9 +13,9 @@ public class BillboardFaceCam : MonoBehaviour
     //Update target to always face camera
     private void FixedUpdate()
     {
-        if (target == null) mainCamera = Camera.main.transform;
+        if (mainCamera == null) mainCamera = Camera.main.transform;
 
-        transform.LookAt(mainCamera);
-        transform.position = target.position + offset;
+        if(mainCamera != null) transform.LookAt(mainCamera);
+        if(target !=  null) transform.position = target.position + offset;
     }
 }

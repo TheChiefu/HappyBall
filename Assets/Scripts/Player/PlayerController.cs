@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 200;
     public float maxSpeed = 50;
     public bool isGrounded = true;
+    public bool isDead = false;
+    public int health = 3;
 
     [Header("Animation")]
     [SerializeField] private Animator _anim;
@@ -25,6 +27,13 @@ public class PlayerController : MonoBehaviour
     private AudioSource _ac;
     private LevelManager _lm;
 
+
+    //Inital Value Holders
+    [SerializeField] private float initalForce;
+    [SerializeField] float initalJumpForce;
+    [SerializeField] private float initalMass;
+    [SerializeField] private bool canHurt = true;
+
     private void Start()
     {
         if (_im == null)        _im = InputManager.instance;
@@ -34,6 +43,13 @@ public class PlayerController : MonoBehaviour
         if (_sm == null)        _sm = GameManager.instance.mainCamera.GetComponent<SmartCam>();
         if (ball == null)       ball = GetComponentInChildren<Rigidbody>();
         if (notificationBox == null) Debug.LogError("Attach the notification box reference to " + this.name);
+
+        if(ball != null)
+        {
+            initalForce = force;
+            initalJumpForce = jumpForce;
+            initalMass = ball.mass;
+        }
     }
 
     //Update player movement
@@ -51,6 +67,87 @@ public class PlayerController : MonoBehaviour
 
 
 
+
+    /// <summary>
+    /// Damage player by given amount
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Damage(int amount)
+    {
+        //Integer underflow check
+        if(canHurt) health = checked(health - amount);
+
+        if (health <= 0)
+        {
+            Died();
+            isDead = true;
+        }
+        else
+        {
+            isDead = false;
+        }
+    }
+
+    /// <summary>
+    /// Add given amount of health to player
+    /// </summary>
+    /// <param name="amount"></param>
+    public void Heal(int amount)
+    {
+        //Accounts for integer overflow
+        health = checked(health + amount);
+
+    }
+
+    private void Died()
+    {
+        Debug.Log("U Ded");
+    }
+
+
+
+
+    // Player Power Up Conditions //
+
+    /// <summary>
+    /// Modify the gravity of this object for a given amount of time
+    /// Note: Multiplies ball mass by amount
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="time"></param>
+    public IEnumerator ModifyGravity(float amount, float time)
+    {
+        ball.mass *= amount;
+        yield return new WaitForSeconds(time);
+        ball.mass = initalMass;
+    }
+
+    /// <summary>
+    /// Modify the force player can exert over a given amount a of time
+    /// Adds ball mass to amount
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator ModifySpeed(float amount , float time)
+    {
+        force += amount;
+        yield return new WaitForSeconds(time);
+        Debug.Log("Done");
+        force = initalForce;
+    }
+
+    /// <summary>
+    /// Make player invinsible for given amount of time
+    /// </summary>
+    /// <param name="time"></param>
+    /// <returns></returns>
+    public IEnumerator MakeInvinsible(float time)
+    {
+        canHurt = false;
+        yield return new WaitForSeconds(time);
+        canHurt = true;
+    }
 
 
     /// <summary>

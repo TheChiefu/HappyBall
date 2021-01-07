@@ -9,6 +9,10 @@ public class PhysicsObject : MonoBehaviour
     [HideInInspector] public Quaternion respawnRotation;
     [SerializeField] private AudioClip hitSound;
     private AudioSource _as;
+    private Rigidbody _rb;
+
+    private float initalMass;
+
 
 
     private void Awake()
@@ -19,6 +23,12 @@ public class PhysicsObject : MonoBehaviour
         {
             _as = GetComponent<AudioSource>();
             _as.clip = hitSound;
+        }
+
+        if(_rb == null)
+        {
+            _rb = GetComponent<Rigidbody>();
+            initalMass = _rb.mass;
         }
     }
 

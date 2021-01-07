@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
     [Header("Tracked Items:")]
     public float timeRemaining = 120;
     public int switchesActivated = 0;
+    public int scoreMultiplier = 1;
     public int totalScore { get; private set; }
 
     [Header("Level Cosmestics")]
@@ -42,45 +43,39 @@ public class LevelManager : MonoBehaviour
     public Color SecondaryColor;
     public Color TertiaryColor;
 
-
-    [Header("UI Elements")]
-    [SerializeField] private TextMeshProUGUI UI_TimeRemaining = null;
-    [SerializeField] private TextMeshProUGUI UI_TotalScore = null;
-    private MultilanguageText UI_TimeText = null;
-
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(this);
+    }
 
-        if (UI_TimeText == null) UI_TimeText = UI_TimeRemaining.GetComponent<MultilanguageText>();
+    private void Start()
+    {
     }
 
     private void FixedUpdate()
     {
-        UpdateTime(UI_TimeText.outputText);
+        UpdateTime();
+    }
+
+
+    private void UpdateTime()
+    {
+        if (timeRemaining > 0)
+        {
+            timeRemaining -= Time.deltaTime;
+            HUD_Manager.instance.UpdateTime(timeRemaining);
+        }
     }
 
     /// <summary>
-    /// Update time with given language text (i.e: Time Reamining or other language equvilant)
+    /// Update score with total score plus value
     /// </summary>
-    /// <param name="text"></param>
-    private void UpdateTime(string text)
-    {
-        var span = new System.TimeSpan(0, 0, (int)timeRemaining);
-
-        if(timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-        }
-
-        UI_TimeRemaining.text = string.Format("{0}: {1}", text, span);
-    }
-
-    public void UpdateScore(int value)
+    /// <param name="value"></param>
+    public void UpdateScore(int value, int totalScore)
     {
         totalScore += value;
-        UI_TotalScore.text = string.Format("Total Score: {0}", totalScore);
+        HUD_Manager.instance.UpdateScore(totalScore);
     }
 
     public void EndLevel()
@@ -95,4 +90,10 @@ public class LevelManager : MonoBehaviour
         levelEnded = true;
     }
 
+    public IEnumerator ModifyMultiplier(int value, float timer)
+    {
+        scoreMultiplier = value;
+        yield return new WaitForSeconds(timer);
+        scoreMultiplier = 1;
+    }
 }

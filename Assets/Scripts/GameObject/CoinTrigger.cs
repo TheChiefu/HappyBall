@@ -15,6 +15,9 @@ public class CoinTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player") coin.Collect();
+        if (other.tag == "Player")
+        {
+            coin.Collect(LevelManager.instance.scoreMultiplier);
+        }
     }
 }
