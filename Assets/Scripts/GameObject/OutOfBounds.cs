@@ -24,12 +24,17 @@ public class OutOfBounds : MonoBehaviour
         //If object is the player set their position at spawn/checkpoint
         if(other.gameObject.tag == "Player")
         {
+            PlayerController player = other.gameObject.GetComponentInParent<PlayerController>();
+            Rigidbody rb = other.GetComponent<Rigidbody>();
+            if (player != null) player.Damage(1);
+
             LevelManager LM = LevelManager.instance;
 
             //Respawn at checkpoint spawn
             if(LM.respawnPoints.Length > 0)
             {
                 Transform respawn = LM.respawnPoints[LM.currentCheckpoint];
+                if (rb != null) rb.velocity.Set(0, 0, 0);
                 ts.position = respawn.position;
                 ts.rotation = respawn.rotation;
             }

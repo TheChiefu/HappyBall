@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 622961590543936747, guid: 86390a510c90e8743a0b510158067427, type: 3}
       propertyPath: m_Name
-      value: Single_Box_Corner_TR
+      value: Single_Box_Corner_TR Variant
       objectReference: {fileID: 0}
     - target: {fileID: 5090320783763442584, guid: 86390a510c90e8743a0b510158067427, type: 3}
       propertyPath: m_RootOrder

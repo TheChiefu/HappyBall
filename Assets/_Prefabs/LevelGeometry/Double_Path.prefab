@@ -403,7 +403,7 @@ PrefabInstance:
       objectReference: {fileID: 1918401798173233861}
     - target: {fileID: 444858699585875988, guid: ed936e2d1c544cd4d9b1e68e82467986, type: 3}
       propertyPath: m_Name
-      value: Double_Left_Right
+      value: Double_Path
       objectReference: {fileID: 0}
     - target: {fileID: 5200869413990537063, guid: ed936e2d1c544cd4d9b1e68e82467986, type: 3}
       propertyPath: m_RootOrder

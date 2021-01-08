@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         Initialize();
-        mainCamera = Camera.main;
+        if(mainCamera == null) mainCamera = Camera.main;
         applicationPath = Application.persistentDataPath;
         userData.Load(Utility.GetUserSavePath());
     }

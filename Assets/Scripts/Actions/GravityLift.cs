@@ -7,6 +7,7 @@ public class GravityLift : MonoBehaviour
 {
     [SerializeField] private Vector3 direction;
     [SerializeField] private float multiplier = 1f;
+    [SerializeField] private AudioSource _ac;
     private ParticleSystem particles;
 
 
@@ -21,6 +22,8 @@ public class GravityLift : MonoBehaviour
             vel.yMultiplier = direction.y;
             vel.zMultiplier = direction.z;
         }
+
+        if (_ac == null) GetComponent<AudioSource>();
     }
 
     //Send rigidbody towards given direction
@@ -31,6 +34,7 @@ public class GravityLift : MonoBehaviour
         {
             //Set velocity of object for consistent movement and direction
             rg.velocity = direction * multiplier;
+            _ac.Play();
         }
     }
 

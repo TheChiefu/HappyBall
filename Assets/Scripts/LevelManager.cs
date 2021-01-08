@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 /// <summary>
@@ -15,8 +13,8 @@ public class LevelManager : MonoBehaviour
     /// 0 - Default: Global world movement, Forward is Z, Left/Right is X Axis, and Up and Y
     /// 1 - Target: Moves relative to target's local movement axis (3D)
     /// </summary>
-    [Range(0,3)]
-    public int cameraMode = 0;
+    //[Range(0,3)]
+    //public int cameraMode = 0;
 
     [Header("Level Settings:")]
     [SerializeField] private bool inEditor = false;
@@ -43,28 +41,29 @@ public class LevelManager : MonoBehaviour
     public Color SecondaryColor;
     public Color TertiaryColor;
 
+    //Static instance check
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(this);
     }
 
-    private void Start()
-    {
-    }
-
+    //Events done in pauseable fixed time update
     private void FixedUpdate()
     {
         UpdateTime();
     }
 
 
+    /// <summary>
+    /// Update time HUD text and internal counter
+    /// </summary>
     private void UpdateTime()
     {
         if (timeRemaining > 0)
         {
             timeRemaining -= Time.deltaTime;
-            HUD_Manager.instance.UpdateTime(timeRemaining);
+            HUD_Manager.instance.UpdateTime(ref timeRemaining);
         }
     }
 
@@ -78,11 +77,16 @@ public class LevelManager : MonoBehaviour
         HUD_Manager.instance.UpdateScore(totalScore);
     }
 
+    /// <summary>
+    /// Perform all level ending functions
+    /// </summary>
     public void EndLevel()
     {
         StartCoroutine(Wait(winDelayTime));
     }
 
+
+    //For delays in non enumator functions
     private IEnumerator Wait(float timer)
     {
         yield return new WaitForSeconds(timer);
@@ -90,10 +94,14 @@ public class LevelManager : MonoBehaviour
         levelEnded = true;
     }
 
+
+    //Multiplier modifier based on timer
     public IEnumerator ModifyMultiplier(int value, float timer)
     {
         scoreMultiplier = value;
+        HUD_Manager.instance.UpdateMultiplier(value);
         yield return new WaitForSeconds(timer);
+        HUD_Manager.instance.UpdateMultiplier(value);
         scoreMultiplier = 1;
     }
 }

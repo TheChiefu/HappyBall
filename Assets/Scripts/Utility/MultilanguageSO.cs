@@ -22,12 +22,20 @@ public class MultilanguageSO : UnityEngine.ScriptableObject
     {
         string output = string.Empty;
 
-        for(int i = 0; i < array.Length; i++)
+        if (array.Length > 1)
         {
-            //Ensure last line doesn't have trailing endline
-            if (i != array.Length - 1) output += array[i] + "\n";
-            else output += array[i];
+            for (int i = 0; i < array.Length; i++)
+            {
+                //Ensure last line doesn't have trailing endline
+                if (i != array.Length - 1) output += array[i] + "\n";
+                else output += array[i];
+            }
         }
+        else
+        {
+            output = array[0];
+        }
+
 
         return output;
     }

@@ -21,7 +21,7 @@ public class BodyCollision : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionEnter(Collision collision)
     {
-        if(!_pc.isGrounded)
+        if(!_pc.IsGrounded())
         {
             _ac.clip = hitSounds[Random.Range(0, hitSounds.Length)];
             _ac.Play();
@@ -36,7 +36,7 @@ public class BodyCollision : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ground")
         {
-            _pc.isGrounded = true;
+            _pc.IsGrounded(true);
         }
     }
 
@@ -46,6 +46,6 @@ public class BodyCollision : MonoBehaviour
     /// <param name="collision"></param>
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "Ground") _pc.isGrounded = false;
+        if (collision.gameObject.tag == "Ground") _pc.IsGrounded(false);
     }
 }

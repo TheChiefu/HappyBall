@@ -6,13 +6,20 @@ public class PlayerController : MonoBehaviour
 {
 
     [Header("General")]
-    public Rigidbody ball;
-    public float force = 100;
-    public float jumpForce = 200;
-    public float maxSpeed = 50;
-    public bool isGrounded = true;
-    public bool isDead = false;
-    public int health = 3;
+    [SerializeField] private Rigidbody ball;
+    [SerializeField] private float force = 100;
+    [SerializeField] private float jumpForce = 200;
+    [SerializeField] private float maxSpeed = 50;
+    [SerializeField] private bool isGrounded = true;
+    [SerializeField] private bool isDead = false;
+    [SerializeField] private int health = 3;
+
+    //Move Type Values
+    // 0 - Move with camera
+    // 1 - World movement (X,Y,Z) to global directions
+    // 2 - World movement in 2D
+    [Range(0,2)]
+    [SerializeField] private int moveType = 0;
 
     [Header("Animation")]
     [SerializeField] private Animator _anim;
@@ -40,9 +47,23 @@ public class PlayerController : MonoBehaviour
         if (_lm == null)        _lm = LevelManager.instance;
         if (_ac == null)        _ac = GetComponent<AudioSource>();
         if (_anim == null)      _anim = GetComponentInChildren<Animator>();
-        if (_sm == null)        _sm = GameManager.instance.mainCamera.GetComponent<SmartCam>();
+        if (_sm == null)
+        { 
+            //Check for GameManager
+            if(_sm == null) _sm = GameManager.instance.mainCamera.GetComponent<SmartCam>();
+
+            //Then check in scene
+            if (_sm == null) _sm = Camera.main.GetComponent<SmartCam>(); Debug.LogError("Found in main camera search, could not find in GameManager");
+        }
         if (ball == null)       ball = GetComponentInChildren<Rigidbody>();
-        if (notificationBox == null) Debug.LogError("Attach the notification box reference to " + this.name);
+        if (notificationBox == null)
+        {
+            //Attempt to find in scene
+            notificationBox = GameObject.FindGameObjectWithTag("Notification").GetComponent<NotificationBox>();
+
+            //If still can't find box push error
+            if(notificationBox == null) Debug.LogError("Attach the notification box reference to " + this.name);
+        }
 
         if(ball != null)
         {
@@ -58,8 +79,18 @@ public class PlayerController : MonoBehaviour
         //Do not allow movement mid-air
         if (isGrounded)
         {
-            if (_lm.cameraMode == 0) Movement(null, true);
-            else if (_lm.cameraMode == 1) Movement(_sm.transform, false);
+            switch (moveType)
+            {
+                case 0:
+                    Movement(null, true, true);
+                    break;
+                case 1:
+                    Movement(_sm.transform, false, true);
+                    break;
+                case 2:
+                    Movement(null, true, false);
+                    break;
+            }
         }
     }
 
@@ -74,8 +105,14 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount"></param>
     public void Damage(int amount)
     {
+        Debug.Log("Ow");
+
         //Integer underflow check
-        if(canHurt) health = checked(health - amount);
+        if (canHurt)
+        {
+            health = checked(health - amount);
+            HUD_Hearts.instance.UpdateHearts(-amount);
+        }
 
         if (health <= 0)
         {
@@ -96,7 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         //Accounts for integer overflow
         health = checked(health + amount);
-
+        HUD_Hearts.instance.UpdateHearts(amount);
     }
 
     private void Died()
@@ -133,7 +170,6 @@ public class PlayerController : MonoBehaviour
     {
         force += amount;
         yield return new WaitForSeconds(time);
-        Debug.Log("Done");
         force = initalForce;
     }
 
@@ -151,24 +187,29 @@ public class PlayerController : MonoBehaviour
 
 
     /// <summary>
-    /// Move ball relative or target or world axis
+    /// Move ball relative or target or world axis. First check for target to move with it's local axis. Then check for world movement, and finally 2D movement
     /// </summary>
     /// <param name="target"></param>
     /// <param name="WorldMove"></param>
-    private void Movement(Transform target, bool WorldMove)
+    /// <param name="canMoveIn3D"></param>
+    private void Movement(Transform target, bool WorldMove, bool canMoveIn3D)
     {
-        //Forward
-        if (_im.Movement.y < 0)
+        //For fixed camera angles
+        if(canMoveIn3D)
         {
-            if (WorldMove) ball.AddForce(Vector3.forward * -force);
-            else ball.AddForce(target.forward * -force);
-        }
+            //Forward
+            if (_im.Movement.y < 0)
+            {
+                if (WorldMove) ball.AddForce(Vector3.forward * -force);
+                else ball.AddForce(target.forward * -force);
+            }
 
-        //Backward
-        if (_im.Movement.y > 0)
-        {
-            if (WorldMove) ball.AddForce(Vector3.forward * force);
-            else ball.AddForce(target.forward * force);
+            //Backward
+            if (_im.Movement.y > 0)
+            {
+                if (WorldMove) ball.AddForce(Vector3.forward * force);
+                else ball.AddForce(target.forward * force);
+            }
         }
 
         //Left
@@ -210,5 +251,52 @@ public class PlayerController : MonoBehaviour
         endParticles.SetActive(true);
 
         if (floatingTitle != null) floatingTitle.SetActive(false);
+    }
+
+    /// <summary>
+    /// Change movement type of player given an integer value
+    /// </summary>
+    /// <param name="value"></param>
+    public void ChangeMovementType(int value)
+    {
+        if(value < 0 || value > 3) Debug.LogError("Value is outside the movement range");
+        else
+        {
+            moveType = value;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    // Getters and Setters //
+
+
+    /// <summary>
+    /// Returns current health value on player
+    /// </summary>
+    /// <returns></returns>
+    public int GetHealth()
+    {
+        return this.health;
+    }
+
+    /// <summary>
+    /// Can set or check if player is grounded or not
+    /// </summary>
+    /// <returns></returns>
+    public bool IsGrounded()
+    {
+        return this.isGrounded;
+    }
+    public void IsGrounded(bool value)
+    {
+        this.isGrounded = value;
     }
 }

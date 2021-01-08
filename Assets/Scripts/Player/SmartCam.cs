@@ -30,7 +30,7 @@ public class SmartCam : MonoBehaviour
     {
         if (player != null && _pc != null)
         {
-            //Fix camera switching (should not be in update!)
+/*            //Fix camera switching (should not be in update!)
             switch (_lm.cameraMode)
             {
                 case 0:
@@ -47,7 +47,7 @@ public class SmartCam : MonoBehaviour
                     break;
                 default:
                     break;
-            }
+            }*/
         }
     }
 
@@ -72,12 +72,7 @@ public class SmartCam : MonoBehaviour
         transform.rotation = player.rotation;
     }
 
-    public float spinRate = 5f;
     private bool flippingCamera = false;
-    private bool spinning = false;
-    private float value = 0;
-    private float cameraRotation = 0;
-    private float inverseRotation = 0;
     private void FreeLookCamera()
     {
 
@@ -88,30 +83,12 @@ public class SmartCam : MonoBehaviour
             {
                 flippingCamera = true;
                 freeLookCam.m_XAxis.Value = 180f;
-                //spinning = true;
-                //inverseRotation = Quaternion.Inverse(this.transform.rotation).eulerAngles.y;
             }
 
             if (!_im.flipCamera)
             {
                 flippingCamera = false;
             }
-
-
-            //Try to do smooth camera spin
-/*            if(spinning == true)
-            {
-                value += (Time.deltaTime * spinRate);
-                freeLookCam.m_XAxis.Value = value;
-            }
-
-            if (cameraRotation >= inverseRotation && spinning == true)
-            {
-                value = 0;
-                spinning = false;
-            }*/
-
-
         }
     }
 }

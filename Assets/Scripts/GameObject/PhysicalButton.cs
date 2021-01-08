@@ -101,7 +101,10 @@ public class PhysicalButton : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
-        massOnButton += other.GetComponent<Rigidbody>().mass;
+        if(other.GetComponent<Rigidbody>() != null)
+        {
+            massOnButton += other.GetComponent<Rigidbody>().mass;
+        }
 
         //Check if object can press button, even if it can also check if it can be pressed again
         if (CheckRequirement(other.gameObject) & actionButton.interactable)
@@ -119,7 +122,10 @@ public class PhysicalButton : MonoBehaviour
     /// <param name="other"></param>
     private void OnTriggerExit(Collider other)
     {
-        massOnButton -= other.GetComponent<Rigidbody>().mass;
+        if (other.GetComponent<Rigidbody>() != null)
+        {
+            massOnButton -= other.GetComponent<Rigidbody>().mass;
+        }
 
         if (CheckRequirement(other.gameObject)) 
             buttonAnimator.SetBool("Pressed", false);

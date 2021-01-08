@@ -30,8 +30,11 @@ public class MusicPlayer : MonoBehaviour
         if (isRandom) PlayRandomSong();
         else
         {
-            _as.clip = songs[currentSong];
-            _as.Play();
+            if(currentSong != 0)
+            {
+                _as.clip = songs[currentSong];
+                _as.Play();
+            }
         }
     }
 
@@ -61,30 +64,33 @@ public class MusicPlayer : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        timer += Time.deltaTime;
-        
-        //When song is over
-        if(timer > _as.clip.length)
+        if(currentSong != 0)
         {
+            timer += Time.deltaTime;
 
-            //Song has ended parameters
-            timer = 0;
-            songPlaying = false;
-
-            //If songs are to be delayed, delay them
-            if (songDelay > 0 && !songPlaying)
+            //When song is over
+            if (timer > _as.clip.length)
             {
-                delayTimer += Time.deltaTime;
-                if (delayTimer >= songDelay) songPlaying = true;
-            }
 
-            //Otherwise don't
-            else
-            {
-                if (!loopSong)
+                //Song has ended parameters
+                timer = 0;
+                songPlaying = false;
+
+                //If songs are to be delayed, delay them
+                if (songDelay > 0 && !songPlaying)
                 {
-                    if (isRandom) PlayRandomSong();
-                    else PlaySequentialSong();
+                    delayTimer += Time.deltaTime;
+                    if (delayTimer >= songDelay) songPlaying = true;
+                }
+
+                //Otherwise don't
+                else
+                {
+                    if (!loopSong)
+                    {
+                        if (isRandom) PlayRandomSong();
+                        else PlaySequentialSong();
+                    }
                 }
             }
         }
