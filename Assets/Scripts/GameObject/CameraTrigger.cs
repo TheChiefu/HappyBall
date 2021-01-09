@@ -38,10 +38,17 @@ public class CameraTrigger : MonoBehaviour
 
 
     //For unity GUI, shows trigger volume
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        Gizmos.color = new Color(1, 0, 0, 0.2f);
+        Gizmos.color = new Color(1.0f, 0.75f, 0.0f, 0.2f);
         BoxCollider area = GetComponent<BoxCollider>();
         Gizmos.DrawCube(transform.position + area.center, area.size);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        BoxCollider area = GetComponent<BoxCollider>();
+        Gizmos.DrawWireCube(transform.position + area.center, area.size);
     }
 }

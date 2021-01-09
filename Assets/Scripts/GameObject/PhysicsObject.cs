@@ -36,4 +36,21 @@ public class PhysicsObject : MonoBehaviour
     {
         if (_as != null && _as.clip != null) _as.Play();
     }
+
+    /// <summary>
+    /// Perminately modify mass of this object (therefore gravity effects)
+    /// </summary>
+    /// <param name="amount"></param>
+    public void ModifyGravity(float amount)
+    {
+        _rb.mass = amount;
+    }
+
+    /// <summary>
+    /// Reset ball back to inital mass amount
+    /// </summary>
+    public void ResetGravity()
+    {
+        _rb.mass = initalMass;
+    }
 }

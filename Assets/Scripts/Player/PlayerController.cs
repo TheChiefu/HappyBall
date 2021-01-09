@@ -160,6 +160,24 @@ public class PlayerController : MonoBehaviour
     }
 
     /// <summary>
+    /// Perminately modify mass of this object (therefore gravity effects)
+    /// </summary>
+    /// <param name="amount"></param>
+    public void ModifyGravity(float amount)
+    {
+        Debug.Log("Amount: " + amount);
+        ball.mass *= amount;
+    }
+
+    /// <summary>
+    /// Reset ball back to inital mass amount
+    /// </summary>
+    public void ResetGravity()
+    {
+        ball.mass = initalMass;
+    }
+
+    /// <summary>
     /// Modify the force player can exert over a given amount a of time
     /// Adds ball mass to amount
     /// </summary>
