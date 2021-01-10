@@ -6,17 +6,12 @@ using UnityEngine;
 public class HUD_Hearts : MonoBehaviour
 {
     public static HUD_Hearts instance;
-
     [SerializeField] private GameObject heart;
-    private RectTransform HeartContainer;
-
 
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(this);
-
-        if (HeartContainer == null) this.GetComponent<RectTransform>();
 
         //Spawn necessary amount of hearts
         PlayerController player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();

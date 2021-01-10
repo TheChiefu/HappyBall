@@ -17,7 +17,8 @@ public class CoinTrigger : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            coin.Collect(LevelManager.instance.scoreMultiplier);
+            PlayerController player = other.GetComponentInParent<PlayerController>();
+            coin.Collect(player);
         }
     }
 }

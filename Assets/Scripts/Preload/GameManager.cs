@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         Initialize();
         if(mainCamera == null) mainCamera = Camera.main;
-        applicationPath = Application.persistentDataPath;
+        applicationPath = Utility.GetUserSavePath();
         userData.Load(Utility.GetUserSavePath());
     }
 
@@ -67,6 +67,18 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
     }
 
+    /// <summary>
+    /// Saves all game progress to userdata instance
+    /// </summary>
+    public void Save()
+    {
+        userData.Save(applicationPath);
+    }
+
+    public void Save(LevelSaveData sd)
+    {
+        userData.Save(applicationPath, sd);
+    }
 
     /// <summary>
     /// Check for other instances of GameManager script

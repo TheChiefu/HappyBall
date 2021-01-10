@@ -53,6 +53,9 @@ public class Coin : MonoBehaviour
         if(_as == null) _as = GetComponent<AudioSource>();
         if(_rb == null) _rb = GetComponent<Rigidbody>();
         SetCoinProperties();
+
+        //Add coin value to LevelManger for 'star' calculation
+        LevelManager.instance.AddCoins(Value);
     }
 
     //Update on fixed time scale
@@ -136,12 +139,12 @@ public class Coin : MonoBehaviour
     /// <summary>
     /// Determines what to do when coin is collected
     /// </summary>
-    public void Collect(int multiplier)
+    public void Collect(PlayerController player)
     {
         //Play sound, update score, visually disable coin, and then destory
         _as.Play();
-        HUD_Manager.instance.UpdateScore(Value * multiplier);
         visualCoin.SetActive(false);
+        player.UpdateScore(Value * player.GetMultiplier());
         Destroy(this.gameObject, _as.clip.length);
     }
 }

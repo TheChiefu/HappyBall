@@ -112,9 +112,7 @@ public class Powerup : MonoBehaviour
                     break;
 
                 case PowerupType.Multiplier:
-                    LevelManager.instance.StartCoroutine(
-                        LevelManager.instance.ModifyMultiplier((int)effectPower, time)
-                        );
+                    player.StartCoroutine(player.ModifyMultiplier((int)effectPower, time));
                     break;
 
                 case PowerupType.AddHealth:

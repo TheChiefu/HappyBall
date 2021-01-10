@@ -50,11 +50,11 @@ public class EndGoal : MonoBehaviour
         //Coin requirement check
         if(_lm.WinScore > 0)
         {
-            if (_lm.totalScore >= _lm.WinScore) return true;
+            if (_lm.GetScore() >= _lm.WinScore) return true;
             else
             {
                 //Not enough coins
-                textArea.text = string.Format("{2}: {0}/{1}", _lm.totalScore, _lm.WinScore, text[0].GetText(GameManager.instance.languageIndex));
+                textArea.text = string.Format("{2}: {0}/{1}", _lm.GetScore(), _lm.WinScore, text[0].GetText(GameManager.instance.languageIndex));
 
                 StartCoroutine(DisplayNotification(displayTime));
                 return false;
@@ -64,11 +64,11 @@ public class EndGoal : MonoBehaviour
         //Switch check requirement
         if (_lm.WinSwitches > 0)
         {
-            if (_lm.switchesActivated >= _lm.WinSwitches) return true;
+            if (_lm.GetTotalSwitches() >= _lm.WinSwitches) return true;
             else
             {
                 //Not enough switches activated
-                textArea.text = string.Format("{2}: {0}/{1}", _lm.switchesActivated, _lm.WinSwitches, text[1].GetText(GameManager.instance.languageIndex));
+                textArea.text = string.Format("{2}: {0}/{1}", _lm.GetTotalSwitches(), _lm.WinSwitches, text[1].GetText(GameManager.instance.languageIndex));
 
                 StartCoroutine(DisplayNotification(displayTime));
                 return false;

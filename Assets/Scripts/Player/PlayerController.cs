@@ -14,6 +14,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool isDead = false;
     [SerializeField] private int health = 3;
 
+    [Header("Scoring")]
+    [SerializeField] private int totalScore = 0;
+    [SerializeField] private int scoreMultiplier = 1;
+
     //Move Type Values
     // 0 - Move with camera
     // 1 - World movement (X,Y,Z) to global directions
@@ -37,7 +41,6 @@ public class PlayerController : MonoBehaviour
 
     //Inital Value Holders
     [SerializeField] private float initalForce;
-    [SerializeField] float initalJumpForce;
     [SerializeField] private float initalMass;
     [SerializeField] private bool canHurt = true;
 
@@ -55,7 +58,9 @@ public class PlayerController : MonoBehaviour
             //Then check in scene
             if (_sm == null) _sm = Camera.main.GetComponent<SmartCam>(); Debug.LogError("Found in main camera search, could not find in GameManager");
         }
+
         if (ball == null)       ball = GetComponentInChildren<Rigidbody>();
+
         if (notificationBox == null)
         {
             //Attempt to find in scene
@@ -68,7 +73,6 @@ public class PlayerController : MonoBehaviour
         if(ball != null)
         {
             initalForce = force;
-            initalJumpForce = jumpForce;
             initalMass = ball.mass;
         }
     }
@@ -76,20 +80,24 @@ public class PlayerController : MonoBehaviour
     //Update player movement
     private void FixedUpdate()
     {
-        //Do not allow movement mid-air
-        if (isGrounded)
+        //Only allow movement when level is not ended
+        if(!_lm.levelEnded)
         {
-            switch (moveType)
+            //Do not allow movement mid-air
+            if (isGrounded)
             {
-                case 0:
-                    Movement(null, true, true);
-                    break;
-                case 1:
-                    Movement(_sm.transform, false, true);
-                    break;
-                case 2:
-                    Movement(null, true, false);
-                    break;
+                switch (moveType)
+                {
+                    case 0:
+                        Movement(null, true, true);
+                        break;
+                    case 1:
+                        Movement(_sm.transform, false, true);
+                        break;
+                    case 2:
+                        Movement(null, true, false);
+                        break;
+                }
             }
         }
     }
@@ -138,6 +146,7 @@ public class PlayerController : MonoBehaviour
 
     private void Died()
     {
+        _lm.EndLevel();
         Debug.Log("U Ded");
     }
 
@@ -165,7 +174,6 @@ public class PlayerController : MonoBehaviour
     /// <param name="amount"></param>
     public void ModifyGravity(float amount)
     {
-        Debug.Log("Amount: " + amount);
         ball.mass *= amount;
     }
 
@@ -201,6 +209,16 @@ public class PlayerController : MonoBehaviour
         canHurt = false;
         yield return new WaitForSeconds(time);
         canHurt = true;
+    }
+
+        //Multiplier modifier based on timer
+    public IEnumerator ModifyMultiplier(int value, float timer)
+    {
+        scoreMultiplier = value;
+        HUD_Manager.instance.UpdateMultiplier(value);
+        yield return new WaitForSeconds(timer);
+        HUD_Manager.instance.UpdateMultiplier(value);
+        scoreMultiplier = 1;
     }
 
 
@@ -316,5 +334,31 @@ public class PlayerController : MonoBehaviour
     public void IsGrounded(bool value)
     {
         this.isGrounded = value;
+    }
+
+    /// <summary>
+    /// Update score with total score plus value
+    /// </summary>
+    /// <param name="value"></param>
+    public void UpdateScore(int value)
+    {
+        totalScore += value;
+        HUD_Manager.instance.UpdateScore(totalScore);
+        LevelManager.instance.AddToScore(value);
+    }
+
+    public int GetScore()
+    {
+        return this.totalScore;
+    }
+
+    public void SetMultiplier(int value)
+    { 
+        this.scoreMultiplier = value;
+    }
+
+    public int GetMultiplier()
+    {
+        return this.scoreMultiplier;
     }
 }
