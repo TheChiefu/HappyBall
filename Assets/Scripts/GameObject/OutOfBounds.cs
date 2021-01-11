@@ -30,9 +30,9 @@ public class OutOfBounds : MonoBehaviour
             LevelManager LM = LevelManager.instance;
 
             //Respawn at checkpoint spawn
-            if(LM.respawnPoints.Length > 0)
+            if(LM.GetTotalRespawnPoints() > 0)
             {
-                Transform respawn = LM.respawnPoints[LM.currentCheckpoint];
+                Transform respawn = LM.GetRespawnPointByIndex(LM.GetCheckpoint());
                 if (rb != null) rb.velocity.Set(0, 0, 0);
                 ts.position = respawn.position;
                 ts.rotation = respawn.rotation;

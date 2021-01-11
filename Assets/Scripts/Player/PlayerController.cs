@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         //Only allow movement when level is not ended
-        if(!_lm.levelEnded)
+        if(!_lm.CheckLevelEnd())
         {
             //Do not allow movement mid-air
             if (isGrounded)
@@ -300,6 +300,11 @@ public class PlayerController : MonoBehaviour
         {
             moveType = value;
         }
+    }
+
+    public int GetMovementType()
+    {
+        return this.moveType;
     }
 
 

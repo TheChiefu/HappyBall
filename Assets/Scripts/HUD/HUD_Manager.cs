@@ -44,7 +44,6 @@ public class HUD_Manager : MonoBehaviour
         EoL_Screen.SetActive(false);
     }
 
-
     /// <summary>
     /// Update time display with given seconds converted to TimeSpan
     /// </summary>

@@ -14,25 +14,25 @@ public class InputManager : MonoBehaviour
     public Vector2 Move = Vector2.zero;
     public bool Submit = false;
     public bool Cancel = false;
-    public bool Pause = false;
 
     [Header("Gameplay")]
     public bool Jump = false;
     public bool flipCamera = false;
     public Vector2 Movement = Vector2.zero;
     public bool Interact = false;
+    public bool Pause = false;
 
     //Menu Actions
     private InputAction IA_Move;
     private InputAction IA_Submit;
     private InputAction IA_Cancel;
-    private InputAction IA_Pause;
 
     //Gameplay Actions
     private InputAction IA_Jump;
     private InputAction IA_FlipCamera;
     private InputAction IA_Movement;
     private InputAction IA_Interact;
+    private InputAction IA_Pause;
 
     private void Awake()
     {
@@ -51,10 +51,6 @@ public class InputManager : MonoBehaviour
         //2D Vectors
         IA_Move = menu.FindAction("Move");
         IA_Move.performed += ctx => Move = ctx.ReadValue<Vector2>();
-
-        //Toggle Input
-        IA_Pause = menu.FindAction("Pause");
-        IA_Pause.performed += ctx => Pause = !Pause;
 
         //Hold Down Input
         IA_Submit = menu.FindAction("Submit");
@@ -75,7 +71,8 @@ public class InputManager : MonoBehaviour
         IA_Movement.performed += ctx => Movement = ctx.ReadValue<Vector2>();
 
         //Toggle Input
-
+        IA_Pause = gameplay.FindAction("Pause");
+        IA_Pause.performed += ctx => Pause = !Pause;
 
         //Hold Down Input
         IA_Jump = gameplay.FindAction("Jump");

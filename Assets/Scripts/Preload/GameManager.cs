@@ -24,13 +24,16 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(this);
-
         Initialize();
-        if(mainCamera == null) mainCamera = Camera.main;
-        applicationPath = Utility.GetUserSavePath();
-        userData.Load(Utility.GetUserSavePath());
+    }
+
+    private void Update()
+    {
+        if (InputManager.instance.Pause)
+        {
+            InputManager.instance.Pause = false;
+            PauseGame();
+        }
     }
 
     public void UnpauseGame()
@@ -53,16 +56,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
     }
 
-    private void Cursor_LockNHide()
+    public void GoBackToMainMenu()
     {
-        //Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    private void Cursor_UnlockNShow()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
     }
 
     /// <summary>
@@ -87,6 +83,10 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
+
+            if (mainCamera == null) mainCamera = Camera.main;
+            applicationPath = Utility.GetUserSavePath();
+            userData.Load(Utility.GetUserSavePath());
         }
         else
         {

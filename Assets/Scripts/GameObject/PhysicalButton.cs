@@ -48,10 +48,10 @@ public class PhysicalButton : MonoBehaviour
         if (gameObject.tag == "Player")
         {
 
-            //Mass Requirement Check -- FIX TRY TO IMPLEMENT WAYS OF DETCING ALL MASS ON BUTTON
+            //Mass Requirement Check
             if (weightRequirement > 0)
             {
-                //Check if player is heavy enough
+                //Check if total mass is heavy enough
                 if (massOnButton >= weightRequirement) passed = true;
                 else
                 {
@@ -109,6 +109,8 @@ public class PhysicalButton : MonoBehaviour
         //Check if object can press button, even if it can also check if it can be pressed again
         if (CheckRequirement(other.gameObject) & actionButton.interactable)
         {
+            LevelManager.instance.AddToSwitchCounter();
+
             actionButton.onClick.Invoke();
             if (!isRepeatable) actionButton.interactable = false;
             buttonAnimator.SetBool("Pressed", true);

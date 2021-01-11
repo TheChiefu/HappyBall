@@ -2,11 +2,8 @@ using UnityEngine;
 
 public class SmartCam : MonoBehaviour
 {
-
-    [Header("")]
+    [Header("Camera Properties:")]
     [SerializeField] private float cameraTransitionTime = 1f;
-    [SerializeField] private float distanceOffset = 3;
-    [SerializeField] private float heightOffset = 1;
     [SerializeField] private Transform player;
     [SerializeField] private Cinemachine.CinemachineFreeLook freeLookCam;
 
@@ -14,6 +11,7 @@ public class SmartCam : MonoBehaviour
     private PlayerController _pc;
     private LevelManager _lm;
     private Cinemachine.CinemachineBrain _cb;
+    private bool flippingCamera = false;
 
     private void Start()
     {
@@ -25,64 +23,28 @@ public class SmartCam : MonoBehaviour
         if (_cb != null) _cb.m_DefaultBlend.m_Time = cameraTransitionTime;
     }
 
-
+    /// <summary>
+    /// Perform operations in fixed update for so it can be paused
+    /// </summary>
     public void FixedUpdate()
     {
         if (player != null && _pc != null)
         {
-/*            //Fix camera switching (should not be in update!)
-            switch (_lm.cameraMode)
-            {
-                case 0:
-                    
-                    break;
-                case 1:
-                    FreeLookCamera();
-                    break;
-                case 2:
-                    SideScrollPlayer();
-                    break;
-                case 3:
-                    FixedCamera();
-                    break;
-                default:
-                    break;
-            }*/
+            if (_pc.GetMovementType() == 1) FlipCamera(180);
         }
     }
 
     /// <summary>
-    /// Follow player by sideview. Player's left and right is always the same as cameras.
+    /// Flip camera angle by value
     /// </summary>
-    private void SideScrollPlayer()
+    private void FlipCamera(int value)
     {
-        //Follow player plus a given distance and hight offset
-        transform.position = player.position + (Vector3.forward * distanceOffset) + (Vector3.up * heightOffset);
-
-        Vector3 eulerRotation = new Vector3(0, player.eulerAngles.y, 0);
-        transform.rotation = Quaternion.Euler(eulerRotation);
-    }
-
-    /// <summary>
-    /// Set rotation and transform of camera to target location (aka fixed)
-    /// </summary>
-    private void FixedCamera()
-    {
-        transform.position = player.position;
-        transform.rotation = player.rotation;
-    }
-
-    private bool flippingCamera = false;
-    private void FreeLookCamera()
-    {
-
-        if(freeLookCam != null)
+        if (freeLookCam != null)
         {
-
             if (_im.flipCamera && flippingCamera == false)
             {
                 flippingCamera = true;
-                freeLookCam.m_XAxis.Value = 180f;
+                freeLookCam.m_XAxis.Value = value;
             }
 
             if (!_im.flipCamera)

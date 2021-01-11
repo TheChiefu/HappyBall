@@ -247,6 +247,22 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
+      propertyPath: tertiaryObjects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
+      propertyPath: secondaryObjects.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
+      propertyPath: tertiaryObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 7067362601884463193}
+    - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
+      propertyPath: tertiaryObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 8290371411770175894}
+    - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
       propertyPath: secondaryObjects.Array.data[2]
       value: 
       objectReference: {fileID: 7067362601884463193}
@@ -260,5 +276,10 @@ Transform:
 --- !u!4 &1298595318068631713 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6992077359957167750, guid: 86390a510c90e8743a0b510158067427, type: 3}
+  m_PrefabInstance: {fileID: 8290371411830838823}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &8290371411770175894 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 480667569, guid: 86390a510c90e8743a0b510158067427, type: 3}
   m_PrefabInstance: {fileID: 8290371411830838823}
   m_PrefabAsset: {fileID: 0}

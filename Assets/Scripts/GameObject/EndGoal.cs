@@ -48,13 +48,13 @@ public class EndGoal : MonoBehaviour
     private bool WinConditionMet()
     {
         //Coin requirement check
-        if(_lm.WinScore > 0)
+        if(_lm.GetWinScore() > 0)
         {
-            if (_lm.GetScore() >= _lm.WinScore) return true;
+            if (_lm.GetScore() >= _lm.GetWinScore()) return true;
             else
             {
                 //Not enough coins
-                textArea.text = string.Format("{2}: {0}/{1}", _lm.GetScore(), _lm.WinScore, text[0].GetText(GameManager.instance.languageIndex));
+                textArea.text = string.Format("{2}: {0}/{1}", _lm.GetScore(), _lm.GetWinScore(), text[0].GetText(GameManager.instance.languageIndex));
 
                 StartCoroutine(DisplayNotification(displayTime));
                 return false;
@@ -62,13 +62,13 @@ public class EndGoal : MonoBehaviour
         }
 
         //Switch check requirement
-        if (_lm.WinSwitches > 0)
+        if (_lm.GetWinSwitches() > 0)
         {
-            if (_lm.GetTotalSwitches() >= _lm.WinSwitches) return true;
+            if (_lm.GetTotalSwitches() >= _lm.GetWinSwitches()) return true;
             else
             {
                 //Not enough switches activated
-                textArea.text = string.Format("{2}: {0}/{1}", _lm.GetTotalSwitches(), _lm.WinSwitches, text[1].GetText(GameManager.instance.languageIndex));
+                textArea.text = string.Format("{2}: {0}/{1}", _lm.GetTotalSwitches(), _lm.GetWinSwitches(), text[1].GetText(GameManager.instance.languageIndex));
 
                 StartCoroutine(DisplayNotification(displayTime));
                 return false;

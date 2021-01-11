@@ -30,14 +30,6 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Pause",
-                    "type": "Button",
-                    "id": "5423441c-b3d3-4271-ba6f-329a6b48f8f5",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
                     "name": "Point",
                     "type": "PassThrough",
                     "id": "e4edf474-abfb-4fd9-9a7e-02f5381256c4",
@@ -257,28 +249,6 @@
                 },
                 {
                     "name": "",
-                    "id": "0944308c-a8dd-4842-ac5c-e38e22ecddc2",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard And Mouse",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "021d02c1-4507-4e0d-a4ec-becb0a9bf373",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Gamepad",
-                    "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "55fb286b-0249-49d1-b28e-193f1586e35a",
                     "path": "<Mouse>/position",
                     "interactions": "",
@@ -332,6 +302,14 @@
                     "type": "PassThrough",
                     "id": "a430a82b-c371-478c-8be9-199ac212265d",
                     "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "d7588db0-ddb9-4a54-848f-2b7002a1c30a",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
@@ -545,6 +523,28 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "FlipCamera",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4b023a8-536b-47c4-a079-a2649bd3194b",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard And Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "478f8b01-ac14-4c40-bd4b-e0bb2d46b5e8",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

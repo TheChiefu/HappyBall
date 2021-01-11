@@ -17,20 +17,13 @@ public class LevelManager : MonoBehaviour
     //public int cameraMode = 0;
 
     [Header("Level Settings:")]
-    public string LevelName = string.Empty;
-    public Transform[] respawnPoints;
-    public int currentCheckpoint = 0;
-    public bool levelEnded = false;
+    [SerializeField] private string LevelName = string.Empty;
+    [SerializeField] private Transform[] respawnPoints;
+    [SerializeField] private float timeRemaining = 120;
 
     [Header("Win Requirements:")]
-    public int WinScore = 0;
-    public int WinSwitches = 0;
-
-    [Header("Tracked Items:")]
-    [SerializeField] private int totalScore = 0;
-    [SerializeField] private float timeRemaining = 120;
-    [SerializeField] private int switchesActivated = 0;
-    [SerializeField] private int totalCoinsPossible = 0;
+    [SerializeField] private int WinScore = 0;
+    [SerializeField] private int WinSwitches = 0;
 
     [Header("Level Cosmestics")]
     public Texture PrimaryTexture;
@@ -40,8 +33,16 @@ public class LevelManager : MonoBehaviour
     public Color SecondaryColor;
     public Color TertiaryColor;
 
+    //Invisible in inspector
     private bool doOnce = false;
     private bool playerDied = false;
+    private int currentCheckpoint = 0;
+    private bool levelEnded = false;
+
+    //Tracked Items
+    private int totalCoinsPossible = 0;
+    private int switchesActivated = 0;
+    private int totalScore = 0;
 
     //Static instance check
     private void Awake()
@@ -99,7 +100,7 @@ public class LevelManager : MonoBehaviour
         {
 
             //Calculate star result
-            int stars = 0;
+            int stars;
             float ratio = totalScore / (float)totalCoinsPossible;
 
             // Calculate stars based on coin collected ratio
@@ -141,14 +142,24 @@ public class LevelManager : MonoBehaviour
         totalScore += score;
     }
 
+    public int GetWinScore()
+    {
+        return this.WinScore;
+    }
+
+    public int GetWinSwitches()
+    {
+        return this.WinSwitches;
+    }
+
     public int GetTotalSwitches()
     {
         return this.switchesActivated;
     }
 
-    public void AddToSwitchCounter(int count)
+    public void AddToSwitchCounter()
     {
-        switchesActivated += count;
+        this.switchesActivated++;
     }
 
     public float GetTimeRemaning()
@@ -160,6 +171,37 @@ public class LevelManager : MonoBehaviour
     {
         playerDied = isDead;
     }
+
+    public int GetCheckpoint()
+    {
+        return this.currentCheckpoint;
+    }
+
+    public void SetCheckpoint(int value)
+    {
+        this.currentCheckpoint = value;
+    }
+
+    public bool CheckLevelEnd()
+    {
+        return this.levelEnded;
+    }
+
+    public int GetTotalRespawnPoints()
+    {
+        return this.respawnPoints.Length;
+    }
+
+    public Transform[] RespawnPoints()
+    {
+        return this.respawnPoints;
+    }
+
+    public Transform GetRespawnPointByIndex(int index)
+    {
+        return this.respawnPoints[index];
+    }
+
 
     /// <summary>
     /// Adds possible total coin values in level (accessed by coins on awake)

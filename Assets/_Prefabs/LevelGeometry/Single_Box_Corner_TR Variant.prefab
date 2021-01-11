@@ -64,8 +64,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
+      propertyPath: tertiaryObjects.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
       propertyPath: secondaryObjects.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8632199625544026305, guid: 86390a510c90e8743a0b510158067427, type: 3}
+      propertyPath: tertiaryObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 7737419498747143939}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86390a510c90e8743a0b510158067427, type: 3}
+--- !u!23 &7737419498747143939 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 480667569, guid: 86390a510c90e8743a0b510158067427, type: 3}
+  m_PrefabInstance: {fileID: 7737419498288267442}
+  m_PrefabAsset: {fileID: 0}
