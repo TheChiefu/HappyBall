@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_LevelSelect : MonoBehaviour
+/// <summary>
+/// Generic gameobject class that contains level information
+/// </summary>
+public class MM_LevelSelect : MonoBehaviour
 {
     [Header("Level Attributes:")]
     public Sprite levelPreview;

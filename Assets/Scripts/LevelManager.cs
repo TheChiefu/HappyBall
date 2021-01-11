@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour
     //public int cameraMode = 0;
 
     [Header("Level Settings:")]
+    public string LevelName = string.Empty;
     public Transform[] respawnPoints;
     public int currentCheckpoint = 0;
     public bool levelEnded = false;
@@ -112,8 +113,7 @@ public class LevelManager : MonoBehaviour
 
             //Auto save results
             int index = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-            string name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-            LevelSaveData currentScene = new LevelSaveData(index, name, totalScore, (int)timeRemaining, stars);
+            LevelSaveData currentScene = new LevelSaveData(index, LevelName, totalScore, (int)timeRemaining, stars);
             GameManager.instance.Save(currentScene);
 
             //End Level and Display End of Level Screen
