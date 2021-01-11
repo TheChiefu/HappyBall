@@ -7,8 +7,6 @@ public class PhysicsObject : MonoBehaviour
 {
     [HideInInspector] public Vector3 respawnPosition;
     [HideInInspector] public Quaternion respawnRotation;
-    [SerializeField] private AudioClip hitSound;
-    private AudioSource _as;
     private Rigidbody _rb;
 
     private float initalMass;
@@ -19,11 +17,6 @@ public class PhysicsObject : MonoBehaviour
     {
         respawnPosition = transform.position;
         respawnRotation = transform.rotation;
-        if (_as == null)
-        {
-            _as = GetComponent<AudioSource>();
-            _as.clip = hitSound;
-        }
 
         if(_rb == null)
         {
@@ -32,10 +25,6 @@ public class PhysicsObject : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (_as != null && _as.clip != null) _as.Play();
-    }
 
     /// <summary>
     /// Perminately modify mass of this object (therefore gravity effects)

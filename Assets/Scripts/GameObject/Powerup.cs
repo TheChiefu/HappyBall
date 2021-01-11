@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,11 @@ public class Powerup : MonoBehaviour
     [SerializeField] private float time = 1f;
     [Tooltip("How much effect this powerup will have")]
     [SerializeField] private float effectPower = 1f;
+    [SerializeField] private bool respawnable = false;
+    [SerializeField] private float respawnTime = 10f;
+    
+    [Tooltip("The visual gameobject represented in the world")]
+    [SerializeField] private GameObject visual = null;
 
     [SerializeField]
     public enum PowerupType
@@ -42,6 +48,7 @@ public class Powerup : MonoBehaviour
     private void Awake()
     {
         if (displaySprite != null) displaySprite.sprite = images[(int)type];
+
         _as = GetComponent<AudioSource>();
         _as.clip = pickupSound[(int)type];
 
@@ -136,7 +143,20 @@ public class Powerup : MonoBehaviour
         {
             _as.Play();
             visualObject.gameObject.SetActive(false);
-            Destroy(this.gameObject, _as.clip.length);
+
+            if (respawnable)
+            {
+                visual.SetActive(false);
+                StartCoroutine(Respawn());
+            }
+            else Destroy(this.gameObject, _as.clip.length);
         }
+    }
+
+    private IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(respawnTime);
+        visual.SetActive(true);
+
     }
 }

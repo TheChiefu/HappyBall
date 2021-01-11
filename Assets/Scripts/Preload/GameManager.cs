@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else Destroy(this);
+
         Initialize();
         if(mainCamera == null) mainCamera = Camera.main;
         applicationPath = Utility.GetUserSavePath();
@@ -32,27 +35,22 @@ public class GameManager : MonoBehaviour
 
     public void UnpauseGame()
     {
-        //InputManager.instance.pp.SwitchCurrentActionMap("Gameplay");
-        InputManager.instance.Debug_GetCurrentActionMap();
+        InputManager.instance.pp.SwitchCurrentActionMap("Gameplay");
 
         gameIsPaused = false;
         pauseScreen.SetActive(false);
-        //Time.timeScale = 1;
-        Cursor_LockNHide();
+        Time.timeScale = 1;
     }
 
     public void PauseGame()
     {
         //Set InputManager mode to Menu Mode
-        //InputManager.instance.pp.SwitchCurrentActionMap("Menu");
-        InputManager.instance.Debug_GetCurrentActionMap();
+        InputManager.instance.pp.SwitchCurrentActionMap("Menu");
 
         gameIsPaused = true;
         pauseScreen.SetActive(true);
-        Cursor_UnlockNShow();
 
-
-        //Time.timeScale = 0;
+        Time.timeScale = 0;
     }
 
     private void Cursor_LockNHide()

@@ -7,6 +7,10 @@ using Cinemachine;
 public class CameraTrigger : MonoBehaviour
 {
 
+    [SerializeField]
+    [Range(0,2)]
+    private int MovementType = 0;
+
     //Higher prority camera to main, that the Cinemachine brain switch to while active
     public new CinemachineVirtualCamera camera;
 
@@ -16,6 +20,8 @@ public class CameraTrigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            //When exiting this trigger volume movement to camera specified movement
+            other.gameObject.GetComponentInParent<PlayerController>().ChangeMovementType(MovementType);
 
             camera.Follow = other.gameObject.transform;
             camera.LookAt = other.gameObject.transform;
@@ -29,6 +35,8 @@ public class CameraTrigger : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            //When exiting this trigger volume movement to target 3D movement
+            other.gameObject.GetComponentInParent<PlayerController>().ChangeMovementType(1);
 
             camera.Follow = null;
             camera.LookAt = null;

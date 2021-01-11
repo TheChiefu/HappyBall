@@ -12,7 +12,6 @@ public class OutOfBounds : MonoBehaviour
         Transform ts = other.gameObject.transform;
         if (rg != null) rg.velocity = Vector3.zero;
 
-
         //If object is a tagged physics object set back to it's original spawn
         if(other.gameObject.tag == "Physics")
         {

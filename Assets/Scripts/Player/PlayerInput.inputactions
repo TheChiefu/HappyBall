@@ -71,7 +71,7 @@
                 },
                 {
                     "name": "Scroll",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "10acc96e-c668-4c20-9c03-d7df34a40de2",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -188,17 +188,6 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "c72dcf9c-c5eb-4431-88fc-fe69a199703b",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard And Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -329,17 +318,6 @@
                     "processors": "",
                     "groups": "Keyboard And Mouse",
                     "action": "RightClick",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f15d2ab9-3a33-415f-b735-9dfe50a8b0a4",
-                    "path": "<Mouse>/scroll/y",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard And Mouse",
-                    "action": "Scroll",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

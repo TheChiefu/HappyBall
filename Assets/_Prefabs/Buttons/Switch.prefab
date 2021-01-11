@@ -131,9 +131,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonAnimator: {fileID: 3151532925474956560}
-  actionButton: {fileID: 3151532925474956562}
   sfx: {fileID: 8300000, guid: 6d0ea7cb74665f342a68d3a920bbf57d, type: 3}
+  notificationText: []
+  allowPlayer: 1
+  allowPhysics: 1
   isRepeatable: 0
+  weightRequirement: 0
+  actionButton: {fileID: 3151532925474956562}
+  massOnButton: 0
 --- !u!114 &3151532925474956562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,8 +359,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Press Button To Activate
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 11b95285626a17c49a29840541358924, type: 2}
-  m_sharedMaterial: {fileID: 7646121714265448789, guid: 11b95285626a17c49a29840541358924, type: 2}
+  m_fontAsset: {fileID: 0}
+  m_sharedMaterial: {fileID: 0}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -435,6 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   English: Press Button to Activate
   Japanese: "\u306A\u3044"
+  PremadeLines: {fileID: 0}
   outputText: 
 --- !u!1 &3151532925624386224
 GameObject:
@@ -550,7 +556,7 @@ GameObject:
   - component: {fileID: 3151532927362011364}
   m_Layer: 0
   m_Name: Switch
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

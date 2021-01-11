@@ -40,6 +40,7 @@ public class LevelManager : MonoBehaviour
     public Color TertiaryColor;
 
     private bool doOnce = false;
+    private bool playerDied = false;
 
     //Static instance check
     private void Awake()
@@ -89,28 +90,42 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public void EndLevel()
     {
-        //Calculate star result
-        int stars = 0;
-        float ratio = totalScore / (float) totalCoinsPossible;
+        //If player died or time ran out dis-regard stats
+        bool invalid = false;
+        if (timeRemaining <= 0 || playerDied) invalid = true;
 
-        // Calculate stars based on coin collected ratio
-        // Score can be higher than coin actual due to score multiplier
-        if (ratio <= 0) stars = 0;
-        else if (ratio > 0 && ratio < 0.50f) stars = 1;
-        else if (ratio > 0.50f && ratio < 0.75f) stars = 2;
-        else if (ratio > 0.75f && ratio <= 1f) stars = 3;
-        else if (ratio > 1f && ratio <= 1.25f) stars = 4;
-        else stars = 5;
+        if(!invalid)
+        {
 
-        //End Level and Display End of Level Screen
+            //Calculate star result
+            int stars = 0;
+            float ratio = totalScore / (float)totalCoinsPossible;
+
+            // Calculate stars based on coin collected ratio
+            // Score can be higher than coin actual due to score multiplier
+            if (ratio <= 0) stars = 0;
+            else if (ratio > 0 && ratio < 0.50f) stars = 1;
+            else if (ratio > 0.50f && ratio < 0.75f) stars = 2;
+            else if (ratio > 0.75f && ratio <= 1f) stars = 3;
+            else if (ratio > 1f && ratio <= 1.25f) stars = 4;
+            else stars = 5;
+
+            //Auto save results
+            int index = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+            string name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
+            LevelSaveData currentScene = new LevelSaveData(index, name, totalScore, (int)timeRemaining, stars);
+            GameManager.instance.Save(currentScene);
+
+            //End Level and Display End of Level Screen
+            HUD_Manager.instance.DisplayEoL(timeRemaining, totalScore, stars);
+        }
+        else
+        {
+            //Display alternate Eend of Live Screen
+            HUD_Manager.instance.DisplayEoL(0, 0, 0);
+        }
+
         levelEnded = true;
-        HUD_Manager.instance.DisplayEoL(timeRemaining, totalScore, stars);
-
-        //Auto save results
-        int index = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
-        string name = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
-        LevelSaveData currentScene = new LevelSaveData(index, name, totalScore, (int)timeRemaining, stars);
-        GameManager.instance.Save(currentScene);
     }
 
 
@@ -139,6 +154,11 @@ public class LevelManager : MonoBehaviour
     public float GetTimeRemaning()
     {
         return this.timeRemaining;
+    }
+
+    public void SetPlayerStatus(bool isDead)
+    {
+        playerDied = isDead;
     }
 
     /// <summary>

@@ -40,7 +40,6 @@ public class Coin : MonoBehaviour
     /// </summary>
     [SerializeField] private float floatAmplitude = 1;
 
-
     //Unseen Properties in Editor
     private AudioSource _as;
     private Rigidbody _rb;

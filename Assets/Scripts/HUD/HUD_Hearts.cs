@@ -38,7 +38,10 @@ public class HUD_Hearts : MonoBehaviour
         {
             for (int i = 0; i < -amount; i++)
             {
-                Destroy(transform.GetChild(i).gameObject);
+                if(transform.childCount > 0)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
+                }  
             }
         }
     }

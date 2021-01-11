@@ -14,7 +14,8 @@ public class UserData
 {
     public string username;
     public Color ballColor;
-    public Dictionary<int, LevelSaveData> levelsCompleted;
+    public List<LevelSaveData> levelsCompleted;
+    //public SerializeableDictionary<int, LevelSaveData> levelCompelted;
 
 
     //Constructors
@@ -22,10 +23,10 @@ public class UserData
     {
         this.username = "User";
         this.ballColor = Color.yellow;
-        this.levelsCompleted = new Dictionary<int, LevelSaveData>();
+        this.levelsCompleted = new List<LevelSaveData>();
     }
 
-    public UserData(string username, Color ballColor, Dictionary<int, LevelSaveData> levels)
+    public UserData(string username, Color ballColor, List<LevelSaveData> levels)
     {
         this.username = username;
         this.ballColor = ballColor;
@@ -63,11 +64,21 @@ public class UserData
             }
             else
             {
-                //Find if level is already in dictionary, if it is has overwrite it.
-                if (this.levelsCompleted.ContainsKey(lsd.index))
-                    this.levelsCompleted[lsd.index].Overwrite(lsd);
-                else
-                    this.levelsCompleted.Add(lsd.index, lsd);
+                bool found = false;
+
+                //Find if level is already in list, if it is has overwrite it.
+                for(int i = 0; i < this.levelsCompleted.Count; i++)
+                {
+                    if(levelsCompleted[i].index == lsd.index)
+                    {
+                        levelsCompleted[i].Overwrite(lsd);
+                        found = true;
+                        break;
+                    }
+                }
+
+                //If level is not in list add it
+                if(!found) levelsCompleted.Add(lsd);
             }
 
             //Need to reserialize due to Dictiontary's not being directly serializable
@@ -164,6 +175,7 @@ public class LevelSaveData
             this.stars = newData.stars;
     }
 }
+
 
 /// <summary>
 /// Utility class for various functions in game and scripting.

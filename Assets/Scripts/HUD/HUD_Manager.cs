@@ -1,7 +1,6 @@
 using TMPro;
 using UnityEngine;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class HUD_Manager : MonoBehaviour
 {
@@ -91,11 +90,15 @@ public class HUD_Manager : MonoBehaviour
 
     public void BackToMenu()
     {
-
+        SceneManager.LoadScene(1);
     }
 
     public void NextLevel()
     {
+        int next = SceneManager.GetActiveScene().buildIndex + 1;
 
+        if (next >= SceneManager.sceneCountInBuildSettings) next = 1;
+
+        SceneManager.LoadScene(next);
     }
 }

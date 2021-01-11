@@ -44,11 +44,6 @@ public class InputManager : MonoBehaviour
 
     }
 
-    public void Debug_GetCurrentActionMap()
-    {
-
-    }
-
     private void SetupMenu()
     {
         InputActionMap menu = pi.FindActionMap("Menu");
@@ -96,6 +91,16 @@ public class InputManager : MonoBehaviour
         IA_FlipCamera.performed += ctx => flipCamera = true;
         IA_FlipCamera.canceled += ctx => flipCamera = false;
 
+    }
+
+    public void ChangeToGameplay()
+    {
+        pp.SwitchCurrentActionMap("Gameplay");
+    }
+
+    public void ChangeToMenu()
+    {
+        pp.SwitchCurrentActionMap("Menu");
     }
 
     private void OnEnable()

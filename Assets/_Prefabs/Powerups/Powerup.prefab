@@ -78,6 +78,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   time: 1
   effectPower: 1
+  respawnable: 0
+  respawnTime: 10
+  visual: {fileID: 4532249616065766829}
   type: 0
   images:
   - {fileID: 21300000, guid: a067ae325bfa84b45be75703cbfe15d4, type: 3}
