@@ -81,8 +81,6 @@ public class MM_Levels : MonoBehaviour
 
     public void PressPlay()
     {
-        InputManager.instance.ChangeToGameplay();
-
         SceneManager.LoadScene(selectedLevelIndex);
     }
 
