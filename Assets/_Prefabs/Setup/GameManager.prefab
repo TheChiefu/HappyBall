@@ -394,7 +394,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4909923912202887605}
   - component: {fileID: 4909923912202887610}
-  - component: {fileID: 4909923912202887604}
   - component: {fileID: 4909923912202887606}
   - component: {fileID: 4909923912202887607}
   m_Layer: 0
@@ -441,19 +440,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   gameIsPaused: 0
   pauseScreen: {fileID: 4909923912655604157}
---- !u!114 &4909923912202887604
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4909923912202887611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a732e182aa74704594886c7f635e822, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  HappyBall: {fileID: 0}
 --- !u!114 &4909923912202887606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,10 +479,6 @@ MonoBehaviour:
     m_ActionName: Menu/Cancel[/Keyboard/backspace,/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 5423441c-b3d3-4271-ba6f-329a6b48f8f5
-    m_ActionName: Menu/Pause[/Keyboard/escape,/XInputControllerWindows/start]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: e4edf474-abfb-4fd9-9a7e-02f5381256c4
     m_ActionName: Menu/Point[/Mouse/position]
   - m_PersistentCalls:
@@ -531,6 +513,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 0523805e-ef85-41b9-a127-a10bf8ec74aa
     m_ActionName: Gameplay/FlipCamera[/XInputControllerWindows/rightShoulder,/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d7588db0-ddb9-4a54-848f-2b7002a1c30a
+    m_ActionName: Gameplay/Pause[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard And Mouse
   m_DefaultActionMap: Menu
@@ -553,11 +539,11 @@ MonoBehaviour:
   Move: {x: 0, y: 0}
   Submit: 0
   Cancel: 0
-  Pause: 0
   Jump: 0
   flipCamera: 0
   Movement: {x: 0, y: 0}
   Interact: 0
+  Pause: 0
 --- !u!1 &4909923912258335601
 GameObject:
   m_ObjectHideFlags: 0

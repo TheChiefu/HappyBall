@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
         if (_sm == null)
         { 
             //Check for GameManager
-            if(_sm == null) _sm = GameManager.instance.mainCamera.GetComponent<SmartCam>();
+            if(_sm == null) _sm = Camera.main.GetComponent<SmartCam>();
 
             //Then check in scene
             if (_sm == null) _sm = Camera.main.GetComponent<SmartCam>(); Debug.LogError("Found in main camera search, could not find in GameManager");

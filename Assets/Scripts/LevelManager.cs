@@ -51,6 +51,11 @@ public class LevelManager : MonoBehaviour
         else Destroy(this);
     }
 
+    private void Start()
+    {
+        InputManager.instance.ChangeToGameplay();
+    }
+
     //Events done in pauseable fixed time update
     private void FixedUpdate()
     {
