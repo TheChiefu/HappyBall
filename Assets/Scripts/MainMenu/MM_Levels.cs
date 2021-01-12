@@ -68,10 +68,10 @@ public class MM_Levels : MonoBehaviour
             }
 
             string description = 
-                (levelDescription[0].GetText(langIndex) + lsd.name) + 
-                ("\n" + levelDescription[1].GetText(langIndex) + lsd.totalScore) + 
-                ("\n" + levelDescription[2].GetText(langIndex) + lsd.quickestTime) + 
-                ("\n" + levelDescription[3].GetText(langIndex) + lsd.stars);
+                (levelDescription[0].GetText(langIndex) + ": " + lsd.name) + 
+                ("\n" + levelDescription[1].GetText(langIndex) + ": " + lsd.totalScore) + 
+                ("\n" + levelDescription[2].GetText(langIndex) + ": " + lsd.quickestTime) + 
+                ("\n" + levelDescription[3].GetText(langIndex) + ": " + lsd.stars);
 
             globalLevelDescription.text = description;
         }

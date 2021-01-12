@@ -1,21 +1,30 @@
-/// <summary>
-/// Loads the Preload scene
-/// </summary>
-public class _Preload : UnityEngine.MonoBehaviour
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class _Preload : MonoBehaviour
 {
-    public static _Preload instance;
+    public static _Preload instance = null;
 
     //Static instance check
     private void Awake()
     {
-        if (instance == null)
+        if (instance == null) instance = this;
+        else
         {
-            instance = this;
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0, UnityEngine.SceneManagement.LoadSceneMode.Additive);
-
-            //TESTING PURPOSES
-            Utility.LimitFramerate(60, 1);
+            Debug.LogWarning("Destroying: " + this.name);
+            Destroy(this);
         }
-        else Destroy(this);
+
+        Debug.Log("Is scene Loaded: " + SceneManager.GetSceneByName("_Preload").isLoaded);
+
+        if (SceneManager.GetSceneByName("_Preload").isLoaded)
+        {
+            Debug.Log("Didn't load preload");
+        }
+        else
+        {
+            Debug.Log("Loaded preload");
+            SceneManager.LoadScene(0, LoadSceneMode.Additive);
+        }
     }
 }
