@@ -15,8 +15,6 @@ public class _Preload : MonoBehaviour
             Destroy(this);
         }
 
-        Debug.Log("Is scene Loaded: " + SceneManager.GetSceneByName("_Preload").isLoaded);
-
         if (SceneManager.GetSceneByName("_Preload").isLoaded)
         {
             Debug.Log("Didn't load preload");

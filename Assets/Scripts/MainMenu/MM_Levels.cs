@@ -14,6 +14,7 @@ public class MM_Levels : MonoBehaviour
     [SerializeField] private GameObject LevelSelectTemplate;
     [SerializeField] private RectTransform spawnParent;
     [SerializeField] private Sprite[] levelPreviews;
+    [SerializeField] private string[] levelNames;
     [SerializeField] private Sprite defaultPreview;
     [SerializeField] private TextMeshProUGUI globalLevelDescription;
     [SerializeField] private Image globalLevelPreview;
@@ -54,7 +55,7 @@ public class MM_Levels : MonoBehaviour
         if (GameManager.instance != null)
         {
             //Get Level stats
-            List<LevelSaveData> levels = GameManager.instance.userData.levelsCompleted;
+            List<LevelSaveData> levels = GameManager.instance.saveData.levels;
             LevelSaveData lsd = new LevelSaveData();
 
             //From list of levls find the correct level information by index
@@ -68,7 +69,7 @@ public class MM_Levels : MonoBehaviour
             }
 
             string description = 
-                (levelDescription[0].GetText(langIndex) + ": " + lsd.name) + 
+                (levelDescription[0].GetText(langIndex) + ": " + levelNames[selectedLevelIndex-buildIndexOffset]) + 
                 ("\n" + levelDescription[1].GetText(langIndex) + ": " + lsd.totalScore) + 
                 ("\n" + levelDescription[2].GetText(langIndex) + ": " + lsd.quickestTime) + 
                 ("\n" + levelDescription[3].GetText(langIndex) + ": " + lsd.stars);
@@ -82,6 +83,7 @@ public class MM_Levels : MonoBehaviour
     public void PressPlay()
     {
         SceneManager.LoadScene(selectedLevelIndex);
+        this.gameObject.SetActive(false);
     }
 
     public void PressBack()

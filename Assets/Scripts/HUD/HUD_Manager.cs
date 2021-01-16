@@ -96,7 +96,11 @@ public class HUD_Manager : MonoBehaviour
     {
         int next = SceneManager.GetActiveScene().buildIndex + 1;
 
-        if (next >= SceneManager.sceneCountInBuildSettings) next = 1;
+        if (next >= SceneManager.sceneCountInBuildSettings)
+        {
+            next = 1;
+            InputManager.instance.ChangeToMenu();
+        }
 
         SceneManager.LoadScene(next);
     }

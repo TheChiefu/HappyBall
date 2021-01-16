@@ -174,21 +174,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4909923912202887606, guid: d513c065932dc824ca6c69f6591523e8, type: 3}
-      propertyPath: m_Actions
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: da1ad5fd98fb34b428c3ed811efbde20, type: 3}
-    - target: {fileID: 4909923912202887606, guid: d513c065932dc824ca6c69f6591523e8, type: 3}
-      propertyPath: m_DefaultControlScheme
-      value: Keyboard And Mouse
-      objectReference: {fileID: 0}
     - target: {fileID: 4909923912202887611, guid: d513c065932dc824ca6c69f6591523e8, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4909923912729494081, guid: d513c065932dc824ca6c69f6591523e8, type: 3}
-      propertyPath: m_ActionsAsset
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: da1ad5fd98fb34b428c3ed811efbde20, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d513c065932dc824ca6c69f6591523e8, type: 3}

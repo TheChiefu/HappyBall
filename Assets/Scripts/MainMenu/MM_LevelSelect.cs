@@ -14,6 +14,6 @@ public class MM_LevelSelect : MonoBehaviour
 
     public void Clicked()
     {
-        manager.LevelSelected(levelIndex, levelPreview); 
+        manager.LevelSelected(levelIndex, levelPreview);
     }
 }

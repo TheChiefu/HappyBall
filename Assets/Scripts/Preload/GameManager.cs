@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [Header("Player Data")]
-    public UserData userData = new UserData();
+    [SerializeField] public SaveData saveData = new SaveData();
 
     [Header("Other")]
     public int languageIndex = 0;   //0 - English / 1 - Japanese
@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour
     public bool gameIsPaused;
 
     [Header("UI Elements")]
+    [SerializeField] private GameObject MainMenuCanvases;
+    [SerializeField] private GameObject MM_Main;
+
     [SerializeField] private GameObject pauseScreen;
 
 
@@ -24,9 +27,8 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
-
             applicationPath = Utility.GetUserSavePath();
-            userData.Load(Utility.GetUserSavePath());
+            Load();
         }
         else
         {
@@ -66,20 +68,49 @@ public class GameManager : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
+        pauseScreen.SetActive(false);
+        gameIsPaused = false;
+        Time.timeScale = 1;
+
         UnityEngine.SceneManagement.SceneManager.LoadScene(1);
         InputManager.instance.ChangeToMenu();
+
+        MainMenuCanvases.SetActive(true);
+        MM_Main.SetActive(true);
     }
 
     /// <summary>
-    /// Saves all game progress to userdata instance
+    /// Saves all game progress to SaveData instance
     /// </summary>
     public void Save()
     {
-        userData.Save(applicationPath);
+        saveData.Save(applicationPath);
+    }
+
+    public void Save(UserData ud)
+    {
+        saveData.Save(applicationPath, ud);
     }
 
     public void Save(LevelSaveData sd)
     {
-        userData.Save(applicationPath, sd);
+        saveData.Save(applicationPath, sd);
+    }
+    
+    public void Save(PreferencesData pd)
+    {
+        saveData.Save(applicationPath, pd);
+    }
+
+
+    /// <summary>
+    /// Gets all values from saved JSON file and assigns to local SaveData value
+    /// </summary>
+    public void Load()
+    {
+        if(saveData.Load(Utility.GetUserSavePath()))
+        {
+            Utility.SetGameSettings(saveData.pd);
+        }
     }
 }
