@@ -6,6 +6,8 @@ The premise of the game is that the user solves simple puzzles using a moving ba
 
 The premise of this game is to collect as many coins as you can and beat the level as fast as possible. Some levels require you to press all the switches so make sure to check every corner.
 
+Download Windows Build Zip: [Windows 10 32/64 Bit](https://drive.google.com/file/d/1t5cgN_3mWuCpiy2xo8tcX6uiUbdBe-Xq/view?usp=sharing)
+
 **Screenshots:**
 ![Main Menu](./OnlineMedia/MainMenu.jpg)
 ![Character Customization](./OnlineMedia/CharacterCustomization.jpg)
