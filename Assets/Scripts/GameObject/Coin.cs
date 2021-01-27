@@ -54,7 +54,11 @@ public class Coin : MonoBehaviour
         SetCoinProperties();
 
         //Add coin value to LevelManger for 'star' calculation
-        LevelManager.instance.AddCoins(Value);
+        if(LevelManager.instance != null)
+        {
+            LevelManager.instance.AddCoins(Value);
+        }
+        
     }
 
     //Update on fixed time scale
