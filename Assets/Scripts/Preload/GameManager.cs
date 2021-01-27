@@ -40,9 +40,6 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Instance of GameManager already exists, destroying new one.");
             Destroy(this.gameObject);
         }
-
-        
-        
     }
 
     // Turn on and off the EventSystem per scene change.
@@ -50,7 +47,6 @@ public class GameManager : MonoBehaviour
     // Unity Bug
     private void OnLevelWasLoaded(int level)
     {
-        Debug.Log("Here");
         StartCoroutine(TurnOnOff());
     }
 

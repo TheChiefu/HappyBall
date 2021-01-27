@@ -52,7 +52,7 @@ public class HUD_EoL : MonoBehaviour
 
         if (next >= SceneManager.sceneCountInBuildSettings)
         {
-            next = 0;
+            next = 1;
             InputManager.instance.ChangeToMenu();
         }
 
