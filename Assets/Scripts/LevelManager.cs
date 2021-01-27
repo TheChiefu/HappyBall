@@ -122,13 +122,15 @@ public class LevelManager : MonoBehaviour
             LevelSaveData currentScene = new LevelSaveData(index, LevelName, totalScore, (int)timeRemaining, stars);
             GameManager.instance.Save(currentScene);
 
+            InputManager.instance.ChangeToMenu();
+
             //End Level and Display End of Level Screen
-            HUD_Manager.instance.DisplayEoL(timeRemaining, totalScore, stars);
+            HUD_EoL.instance.DisplayEoL(timeRemaining, totalScore, stars);
         }
         else
         {
             //Display alternate Eend of Live Screen
-            HUD_Manager.instance.DisplayEoL(0, 0, 0);
+            HUD_EoL.instance.DisplayEoL(0, 0, 0);
         }
 
         levelEnded = true;

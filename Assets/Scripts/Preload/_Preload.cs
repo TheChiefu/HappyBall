@@ -3,26 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class _Preload : MonoBehaviour
 {
-    public static _Preload instance = null;
+    public bool isLoaded = false;
 
     //Static instance check
     private void Awake()
     {
-        if (instance == null) instance = this;
-        else
-        {
-            Debug.LogWarning("Destroying: " + this.name);
-            Destroy(this);
-        }
-
         if (SceneManager.GetSceneByName("_Preload").isLoaded)
         {
-            Debug.Log("Didn't load preload");
+            isLoaded = true;
         }
-        else
+
+        if (!isLoaded)
         {
+
+
             Debug.Log("Loaded preload");
             SceneManager.LoadScene(0, LoadSceneMode.Additive);
+            isLoaded = true;
         }
     }
 }

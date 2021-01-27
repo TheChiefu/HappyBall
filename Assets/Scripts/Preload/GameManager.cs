@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class GameManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject MainMenuCanvases;
     [SerializeField] private GameObject MM_Main;
-
+    [SerializeField] private GameObject EoL_Screen;
     [SerializeField] private GameObject pauseScreen;
-
+    [SerializeField] private GameObject EventSystem;
 
     private void Awake()
     {
@@ -28,6 +29,10 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(this);
             applicationPath = Utility.GetUserSavePath();
+
+            //Load to main menu on first load
+            SceneManager.LoadScene(1);
+
             Load();
         }
         else
@@ -35,7 +40,31 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("Instance of GameManager already exists, destroying new one.");
             Destroy(this.gameObject);
         }
+
+        
+        
     }
+
+    // Turn on and off the EventSystem per scene change.
+    // For some reason it stops working on scene change
+    // Unity Bug
+    private void OnLevelWasLoaded(int level)
+    {
+        Debug.Log("Here");
+        StartCoroutine(TurnOnOff());
+    }
+
+    /// <summary>
+    /// Did you try turning if on and off?
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator TurnOnOff()
+    {
+        EventSystem.SetActive(false);
+        yield return new WaitForEndOfFrame();
+        EventSystem.SetActive(true);
+    }
+
 
     private void Update()
     {
@@ -72,7 +101,8 @@ public class GameManager : MonoBehaviour
         gameIsPaused = false;
         Time.timeScale = 1;
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        //SceneManager.UnloadScene(SceneManager.GetActiveScene());
+        SceneManager.LoadScene("00_MainMenu", LoadSceneMode.Single);
         InputManager.instance.ChangeToMenu();
 
         MainMenuCanvases.SetActive(true);
