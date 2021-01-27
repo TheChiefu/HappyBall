@@ -93,13 +93,11 @@ public class InputManager : MonoBehaviour
     public void ChangeToGameplay()
     {
         pp.SwitchCurrentActionMap("Gameplay");
-        Debug.Log("Controls: Switched to Gameplay");
     }
 
     public void ChangeToMenu()
     {
         pp.SwitchCurrentActionMap("Menu");
-        Debug.Log("Controls: Switched to Menu");
     }
 
     private void OnEnable()

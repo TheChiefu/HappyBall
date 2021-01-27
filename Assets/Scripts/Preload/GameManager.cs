@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
     [Header("Player Data")]
-    public UserData userData = new UserData();
+    [SerializeField] public SaveData saveData = new SaveData();
 
     [Header("Other")]
     public int languageIndex = 0;   //0 - English / 1 - Japanese
@@ -15,8 +16,11 @@ public class GameManager : MonoBehaviour
     public bool gameIsPaused;
 
     [Header("UI Elements")]
+    [SerializeField] private GameObject MainMenuCanvases;
+    [SerializeField] private GameObject MM_Main;
+    [SerializeField] private GameObject EoL_Screen;
     [SerializeField] private GameObject pauseScreen;
-
+    [SerializeField] private GameObject EventSystem;
 
     private void Awake()
     {
@@ -24,9 +28,12 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this);
-
             applicationPath = Utility.GetUserSavePath();
-            userData.Load(Utility.GetUserSavePath());
+
+            //Load to main menu on first load
+            SceneManager.LoadScene(1);
+
+            Load();
         }
         else
         {
@@ -34,6 +41,26 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    // Turn on and off the EventSystem per scene change.
+    // For some reason it stops working on scene change
+    // Unity Bug
+    private void OnLevelWasLoaded(int level)
+    {
+        StartCoroutine(TurnOnOff());
+    }
+
+    /// <summary>
+    /// Did you try turning if on and off?
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator TurnOnOff()
+    {
+        EventSystem.SetActive(false);
+        yield return new WaitForEndOfFrame();
+        EventSystem.SetActive(true);
+    }
+
 
     private void Update()
     {
@@ -66,20 +93,50 @@ public class GameManager : MonoBehaviour
 
     public void GoBackToMainMenu()
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene(1);
+        pauseScreen.SetActive(false);
+        gameIsPaused = false;
+        Time.timeScale = 1;
+
+        //SceneManager.UnloadScene(SceneManager.GetActiveScene());
+        SceneManager.LoadScene("00_MainMenu", LoadSceneMode.Single);
         InputManager.instance.ChangeToMenu();
+
+        MainMenuCanvases.SetActive(true);
+        MM_Main.SetActive(true);
     }
 
     /// <summary>
-    /// Saves all game progress to userdata instance
+    /// Saves all game progress to SaveData instance
     /// </summary>
     public void Save()
     {
-        userData.Save(applicationPath);
+        saveData.Save(applicationPath);
+    }
+
+    public void Save(UserData ud)
+    {
+        saveData.Save(applicationPath, ud);
     }
 
     public void Save(LevelSaveData sd)
     {
-        userData.Save(applicationPath, sd);
+        saveData.Save(applicationPath, sd);
+    }
+    
+    public void Save(PreferencesData pd)
+    {
+        saveData.Save(applicationPath, pd);
+    }
+
+
+    /// <summary>
+    /// Gets all values from saved JSON file and assigns to local SaveData value
+    /// </summary>
+    public void Load()
+    {
+        if(saveData.Load(Utility.GetUserSavePath()))
+        {
+            Utility.SetGameSettings(saveData.pd);
+        }
     }
 }

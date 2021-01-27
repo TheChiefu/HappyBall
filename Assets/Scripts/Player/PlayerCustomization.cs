@@ -11,8 +11,10 @@ public class PlayerCustomization : MonoBehaviour
     private void Start()
     {
         Initialize();
-        PlayerModel.material.color = GameManager.instance.userData.ballColor;
-        PlayerNameDisplay.text = GameManager.instance.userData.username;
+        UserData ud = GameManager.instance.saveData.ud;
+
+        PlayerModel.material.color = ud.ballColor;
+        PlayerNameDisplay.text = ud.username;
     }
 
     /// <summary>

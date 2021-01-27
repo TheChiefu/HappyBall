@@ -8,7 +8,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Rigidbody ball;
     [SerializeField] private float force = 100;
     [SerializeField] private float jumpForce = 200;
-    [SerializeField] private float maxSpeed = 50;
     [SerializeField] private bool isGrounded = true;
     [SerializeField] private bool isDead = false;
     [SerializeField] private int health = 3;
