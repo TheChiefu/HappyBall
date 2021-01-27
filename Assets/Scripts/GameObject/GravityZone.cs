@@ -48,15 +48,14 @@ public class GravityZone : MonoBehaviour
 
 
     /// <summary>
-    /// Gets color of field depenent on given value. Blue for low and Red for high. Clear for 0
+    /// Gets color of field depenent on given value. Blue for low and Red for high.
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
     private Color GetColor(float value)
     {
-        if (massMultiplier <= 0.5f && massMultiplier > 0) return new Color(0, 0, 1, 0.5f);
-        else if (massMultiplier > 1f) return new Color(1, 0, 0, 0.5f);
-        else return Color.clear;
+        if (massMultiplier > 1) return new Color(1, 0, 0, 0.5f);
+        else return new Color(0, 0, 1, 0.5f);
     }
 
     /// <summary>

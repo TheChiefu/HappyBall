@@ -7,6 +7,7 @@ public class MM_MainScreen : MonoBehaviour
 {
     [SerializeField] private GameObject LevelSelectCanvas;
     [SerializeField] private GameObject OptionsCanvas;
+    [SerializeField] private GameObject CreditsCanvas;
 
     public void PressLevelSelect()
     {
@@ -17,6 +18,12 @@ public class MM_MainScreen : MonoBehaviour
     public void PressOptions()
     {
         OptionsCanvas.SetActive(true);
+        this.gameObject.SetActive(false);
+    }
+
+    public void PressCredits()
+    {
+        CreditsCanvas.SetActive(true);
         this.gameObject.SetActive(false);
     }
 

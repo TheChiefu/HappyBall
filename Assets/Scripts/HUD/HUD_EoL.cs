@@ -8,6 +8,7 @@ public class HUD_EoL : MonoBehaviour
 
     [Header("Visual:")]
     public Canvas DisplayCanvas = null;
+    [SerializeField] private GameObject MainMenuCanvas = null;
 
     [Header("End of Level Elements")]
     [SerializeField] private GameObject EoL_Screen = null;
@@ -54,6 +55,7 @@ public class HUD_EoL : MonoBehaviour
         {
             next = 1;
             InputManager.instance.ChangeToMenu();
+            MainMenuCanvas.SetActive(true);
         }
 
         SceneManager.LoadScene(next);

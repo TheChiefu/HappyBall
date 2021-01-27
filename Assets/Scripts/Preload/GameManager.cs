@@ -30,8 +30,12 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this);
             applicationPath = Utility.GetUserSavePath();
 
-            //Load to main menu on first load
-            SceneManager.LoadScene(1);
+            // Load to main menu if current scene is Preload
+            if(SceneManager.GetActiveScene().buildIndex == 0)
+            {
+                Debug.Log("At preload");
+                SceneManager.LoadScene(1);
+            }
 
             Load();
         }
