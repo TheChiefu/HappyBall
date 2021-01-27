@@ -29,6 +29,6 @@ In regards to development the folder structure is setup as followed. All relevan
 - **UI**: Which hold all the UI textures
  
 **Other:**
-To ensure there are no legal issues there are no copyrighted assets in this project to keep it open source.
-This project also uses the [MIT License](https://choosealicense.com/licenses/mit/)
-This project is made using: [Unity 2020.2.0f1](https://unity.com/releases/2020-1)
+- To ensure there are no legal issues there are no copyrighted assets in this project to keep it open source.
+- This project also uses the [MIT License](https://choosealicense.com/licenses/mit/)
+- This project is made using: [Unity 2020.2.0f1](https://unity.com/releases/2020-1)
