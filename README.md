@@ -1,7 +1,7 @@
 
 # Happy Ball
 Open Source Unity Game where player can solve short puzzles as moving ball.
-This is a challenge project to see if I can create a useable game within my URI winter break of 2020-2021.
+This is a challenge project to see if I can create a usable game within my URI winter break of 2020-2021.
 The premise of the game is that the user solves simple puzzles using a moving ball called the "Happy Ball". 
 
 The premise of this game is to collect as many coins as you can and beat the level as fast as possible. Some levels require you to press all the switches so make sure to check every corner.
